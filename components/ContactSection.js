@@ -5,10 +5,10 @@ import { useRef, useState } from 'react';
 import { Send, Github, Linkedin, Twitter, Mail, MapPin, CheckCircle, AlertCircle } from 'lucide-react';
 
 const socials = [
-  { icon: Github,   label: 'GitHub',   href: 'https://github.com/tejapriyan',   color: 'hover:text-white' },
-  { icon: Linkedin, label: 'LinkedIn', href: 'https://linkedin.com/in/tejapriyan', color: 'hover:text-blue-400' },
-  { icon: Twitter,  label: 'Twitter',  href: 'https://twitter.com/tejapriyan',  color: 'hover:text-cyan-400' },
-  { icon: Mail,     label: 'Email',    href: 'mailto:teja@example.com',          color: 'hover:text-purple-400' },
+  { icon: Github,   label: 'GitHub',   href: 'https://github.com/TejaPriyan',          color: 'hover:text-white' },
+  { icon: Linkedin, label: 'LinkedIn', href: 'https://www.linkedin.com/in/tejapriyan',  color: 'hover:text-blue-400' },
+  { icon: Twitter,  label: 'Twitter',  href: 'https://twitter.com/tejapriyan',          color: 'hover:text-cyan-400' },
+  { icon: Mail,     label: 'Email',    href: 'mailto:tejapriyan@email.com',              color: 'hover:text-purple-400' },
 ];
 
 export default function ContactSection() {
@@ -202,7 +202,7 @@ export default function ContactSection() {
                 </div>
                 <div>
                   <p className="text-xs text-gray-500 font-mono uppercase">Email</p>
-                  <p className="text-sm text-gray-300">teja@example.com</p>
+                  <p className="text-sm text-gray-300">tejapriyan@email.com</p>
                 </div>
               </div>
 

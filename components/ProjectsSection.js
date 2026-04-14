@@ -2,71 +2,103 @@
 
 import { motion, useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
-import { ExternalLink, Github, Gamepad2, Bot, Globe, Database, ArrowRight } from 'lucide-react';
+import { ExternalLink, Github, Gamepad2, Bot, Globe, Database, ArrowRight, ShieldCheck, TrafficCone, Hotel, Sparkles } from 'lucide-react';
 
 const projects = [
   {
     id: 1,
-    title: 'Teja Gaming Hub',
-    subtitle: 'Full-Stack Gaming Platform',
+    title: 'Helmet Detection System',
+    subtitle: 'AI & Computer Vision',
     description:
-      'A comprehensive gaming platform with real-time multiplayer support, leaderboards, user profiles, and game hosting. Built with Java backend, React frontend, and WebSocket for live interactions.',
-    tech: ['Java', 'Spring Boot', 'React', 'WebSocket', 'PostgreSQL', 'Redis'],
-    icon: Gamepad2,
+      'Advanced AI-based system that uses computer vision to detect riders without helmets in real-time. Implements CNN deep learning models with 95%+ accuracy for safety enforcement and traffic compliance.',
+    tech: ['Python', 'OpenCV', 'TensorFlow', 'Computer Vision', 'Deep Learning'],
+    icon: ShieldCheck,
     color: 'blue',
     gradient: 'from-blue-500/20 to-cyan-500/20',
     accentColor: '#60a5fa',
     borderColor: 'border-blue-500/30',
-    link: '#',
-    github: '#',
+    link: null,
+    github: 'https://github.com/TejaPriyan',
     featured: true,
   },
   {
     id: 2,
-    title: 'AI Image Generator',
-    subtitle: 'Creative AI Tool',
+    title: 'Smart Traffic Monitoring',
+    subtitle: 'IoT & AI Platform',
     description:
-      'An AI-powered image generation platform using deep learning models. Users can create stunning visuals from text prompts with style transfer and resolution upscaling.',
-    tech: ['Python', 'TensorFlow', 'Node.js', 'Express', 'React', 'AWS S3'],
-    icon: Bot,
+      'IoT and AI-powered system for real-time traffic analysis, violation detection, and smart city infrastructure. Combines computer vision with IoT sensors using YOLO for intelligent traffic management.',
+    tech: ['Python', 'IoT', 'YOLO', 'OpenCV', 'Real-time Processing'],
+    icon: TrafficCone,
     color: 'purple',
     gradient: 'from-purple-500/20 to-pink-500/20',
     accentColor: '#c084fc',
     borderColor: 'border-purple-500/30',
-    link: '#',
-    github: '#',
+    link: null,
+    github: 'https://github.com/TejaPriyan',
     featured: true,
   },
   {
     id: 3,
-    title: 'Portfolio 3D Experience',
-    subtitle: 'Immersive Web Application',
+    title: 'Hotel Booking Website',
+    subtitle: 'Full-Stack Web Application',
     description:
-      'This very portfolio — a 3D cinematic storytelling experience built with Three.js, Next.js, and Framer Motion. Features scroll-driven camera journeys and cinematic chapter transitions.',
-    tech: ['Next.js', 'Three.js', 'Framer Motion', 'Tailwind CSS', 'WebGL'],
-    icon: Globe,
-    color: 'cyan',
-    gradient: 'from-cyan-500/20 to-teal-500/20',
-    accentColor: '#22d3ee',
-    borderColor: 'border-cyan-500/30',
-    link: '#',
-    github: '#',
-    featured: false,
-  },
-  {
-    id: 4,
-    title: 'Microservices API Gateway',
-    subtitle: 'Backend Infrastructure',
-    description:
-      'A scalable API gateway managing authentication, rate limiting, load balancing, and service discovery for a microservices architecture. Handles 10K+ requests/sec.',
-    tech: ['Java', 'Spring Cloud', 'Docker', 'Kubernetes', 'RabbitMQ', 'MongoDB'],
-    icon: Database,
+      'Responsive full-stack hotel management system featuring room listings, real-time booking, user authentication, and admin dashboard. Built with Java Spring Boot and modern web technologies for seamless user experience.',
+    tech: ['Java', 'Spring Boot', 'HTML/CSS', 'SQL', 'REST APIs'],
+    icon: Hotel,
     color: 'green',
     gradient: 'from-green-500/20 to-emerald-500/20',
     accentColor: '#4ade80',
     borderColor: 'border-green-500/30',
-    link: '#',
-    github: '#',
+    link: 'https://veltechhotel.onrender.com/',
+    github: 'https://github.com/TejaPriyan',
+    featured: false,
+  },
+  {
+    id: 4,
+    title: 'Gaming Hub Platform',
+    subtitle: 'Interactive Web Games',
+    description:
+      'Collection of interactive games and web-based gaming experiences. A fun, engaging platform showcasing frontend creativity, interactive UI design, and JavaScript game mechanics.',
+    tech: ['JavaScript', 'HTML/CSS', 'Interactive UI', 'Game Design'],
+    icon: Gamepad2,
+    color: 'cyan',
+    gradient: 'from-cyan-500/20 to-teal-500/20',
+    accentColor: '#22d3ee',
+    borderColor: 'border-cyan-500/30',
+    link: 'https://tejagamehub.netlify.app/',
+    github: 'https://github.com/TejaPriyan',
+    featured: false,
+  },
+  {
+    id: 5,
+    title: 'Glass\u2011Tech Sanctuary',
+    subtitle: 'Personal Web App & Gaming Hub',
+    description:
+      'A serene, glass-inspired personal portfolio & gaming hub. Explore Mind & Skill Suite games, medical & anatomy trivia, and clean code snippets — all wrapped in a minimalist, glassmorphism aesthetic.',
+    tech: ['HTML/CSS', 'JavaScript', 'Game Design', 'Glassmorphism', 'Interactive'],
+    icon: Sparkles,
+    color: 'pink',
+    gradient: 'from-pink-500/20 to-rose-500/20',
+    accentColor: '#ec4899',
+    borderColor: 'border-pink-500/30',
+    link: 'https://myself-tejapriyan.onrender.com/',
+    github: 'https://github.com/TejaPriyan',
+    featured: false,
+  },
+  {
+    id: 6,
+    title: '3D Scroll Portfolio Experience',
+    subtitle: 'Immersive Web Application',
+    description:
+      'This very portfolio — an immersive scroll-based 3D storytelling experience. An Apple-style cinematic journey built with Three.js, Next.js, and Framer Motion featuring scroll-driven camera transitions.',
+    tech: ['Next.js', 'Three.js', 'Framer Motion', 'Tailwind CSS', 'WebGL'],
+    icon: Globe,
+    color: 'amber',
+    gradient: 'from-amber-500/20 to-orange-500/20',
+    accentColor: '#f59e0b',
+    borderColor: 'border-amber-500/30',
+    link: null,
+    github: 'https://github.com/TejaPriyan',
     featured: false,
   },
 ];
@@ -81,18 +113,30 @@ const techColors = {
   Express: 'bg-gray-500/20 text-gray-300',
   Python: 'bg-yellow-500/20 text-yellow-300',
   TensorFlow: 'bg-orange-500/20 text-orange-300',
+  OpenCV: 'bg-blue-500/20 text-blue-300',
+  'Computer Vision': 'bg-purple-500/20 text-purple-300',
+  'Deep Learning': 'bg-pink-500/20 text-pink-300',
+  IoT: 'bg-teal-500/20 text-teal-300',
+  YOLO: 'bg-red-500/20 text-red-300',
+  'Real-time Processing': 'bg-amber-500/20 text-amber-300',
+  'HTML/CSS': 'bg-orange-500/20 text-orange-300',
+  SQL: 'bg-blue-500/20 text-blue-300',
+  'REST APIs': 'bg-green-500/20 text-green-300',
+  'Interactive UI': 'bg-purple-500/20 text-purple-300',
+  'Game Design': 'bg-pink-500/20 text-pink-300',
+  Glassmorphism: 'bg-cyan-500/20 text-cyan-300',
+  Interactive: 'bg-violet-500/20 text-violet-300',
+  JavaScript: 'bg-yellow-500/20 text-yellow-300',
   PostgreSQL: 'bg-blue-500/20 text-blue-300',
   MongoDB: 'bg-green-500/20 text-green-300',
   Redis: 'bg-red-500/20 text-red-300',
   WebSocket: 'bg-purple-500/20 text-purple-300',
   Docker: 'bg-blue-500/20 text-blue-300',
   Kubernetes: 'bg-blue-500/20 text-blue-300',
-  RabbitMQ: 'bg-orange-500/20 text-orange-300',
   'Three.js': 'bg-white/10 text-white',
   'Framer Motion': 'bg-pink-500/20 text-pink-300',
   'Tailwind CSS': 'bg-cyan-500/20 text-cyan-300',
   WebGL: 'bg-red-500/20 text-red-300',
-  'AWS S3': 'bg-orange-500/20 text-orange-300',
 };
 
 function ProjectCard({ project, index }) {
@@ -157,22 +201,26 @@ function ProjectCard({ project, index }) {
 
           {/* Links */}
           <div className="flex gap-2">
-            <a
-              href={project.github}
-              className="p-2 rounded-lg hover:bg-white/10 transition-colors"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Github className="w-4 h-4 text-gray-400 hover:text-white transition-colors" />
-            </a>
-            <a
-              href={project.link}
-              className="p-2 rounded-lg hover:bg-white/10 transition-colors"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <ExternalLink className="w-4 h-4 text-gray-400 hover:text-white transition-colors" />
-            </a>
+            {project.github && (
+              <a
+                href={project.github}
+                className="p-2 rounded-lg hover:bg-white/10 transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Github className="w-4 h-4 text-gray-400 hover:text-white transition-colors" />
+              </a>
+            )}
+            {project.link && (
+              <a
+                href={project.link}
+                className="p-2 rounded-lg hover:bg-white/10 transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <ExternalLink className="w-4 h-4 text-gray-400 hover:text-white transition-colors" />
+              </a>
+            )}
           </div>
         </div>
 
@@ -229,7 +277,7 @@ export default function ProjectsSection() {
             </span>
           </h2>
           <p className="text-gray-400 max-w-xl mx-auto">
-            From gaming platforms to AI tools — each project represents a challenge embraced and a solution delivered.
+            From AI-powered vision systems to full-stack web apps — each project represents a real-world challenge solved with clean code and innovative design.
           </p>
         </motion.div>
 

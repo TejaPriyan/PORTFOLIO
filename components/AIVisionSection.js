@@ -14,31 +14,31 @@ const visionPoints = [
   {
     icon: Zap,
     title: 'AI + Java = Enterprise Intelligence',
-    text: 'Java remains the backbone of enterprise systems. Integrating AI into these systems — from predictive analytics to intelligent automation — is where the real impact lives.',
+    text: 'Java remains the backbone of enterprise systems. Through my Spring Boot training, I\'ve seen firsthand how integrating AI into these systems — from predictive analytics to intelligent automation — creates real-world impact.',
     color: 'blue',
   },
   {
     icon: Eye,
     title: 'Computer Vision Will Be Everywhere',
-    text: 'From autonomous vehicles to medical imaging, computer vision is transforming industries. Building systems that can "see" and understand the world is one of the most exciting challenges in tech.',
+    text: 'From my helmet detection system with 95%+ accuracy to smart traffic monitoring — I\'ve built systems that "see" and understand the real world. Computer vision is transforming safety, transportation, and healthcare.',
     color: 'cyan',
   },
   {
     icon: Cpu,
     title: 'Edge AI Changes the Game',
-    text: "Running AI models on edge devices — phones, IoT sensors, drones — means intelligence without latency. The future isn't just cloud AI; it's AI everywhere.",
+    text: 'Running AI models on edge devices — phones, IoT sensors, drones — means intelligence without latency. My traffic monitoring project combines IoT sensors with YOLO, bringing real-time AI to the streets.',
     color: 'green',
   },
   {
     icon: Network,
     title: 'AI-First Architecture',
-    text: "Tomorrow's applications will be designed with AI at the core, not bolted on as an afterthought. Microservices that think, APIs that learn, and databases that predict.",
+    text: 'Tomorrow\'s applications will be designed with AI at the core, not bolted on as an afterthought. Microservices that think, APIs that learn, and databases that predict — that\'s what I\'m building toward.',
     color: 'pink',
   },
   {
     icon: Lightbulb,
     title: "The Future I'm Building Toward",
-    text: "I envision a world where AI amplifies human potential — where a developer in any corner of the world can build something extraordinary with intelligent tools. That's the future I code for.",
+    text: 'I envision a world where AI amplifies human potential — from helmet detection saving lives to intelligent traffic systems reducing congestion. Every project brings me closer to that future.',
     color: 'amber',
   },
 ];

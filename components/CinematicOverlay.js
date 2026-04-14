@@ -47,33 +47,6 @@ export default function CinematicOverlay({ activeSection }) {
 
   return (
     <>
-      {/* Persistent chapter label — top left corner */}
-      {chapters.map((ch) => (
-        <motion.div
-          key={ch.section}
-          className="fixed top-16 left-4 z-30 pointer-events-none select-none"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: activeSection === ch.section ? 1 : 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          <div className="flex items-center gap-2">
-            <span
-              className="text-[10px] font-mono tracking-[0.25em] uppercase"
-              style={{ color: ch.color }}
-            >
-              Chapter {ch.number}
-            </span>
-            <span className="text-[10px] text-gray-600">—</span>
-            <span className="text-[10px] text-gray-500 tracking-wider italic">
-              {ch.title}
-            </span>
-          </div>
-          <div
-            className="mt-1 h-px w-24 opacity-30"
-            style={{ background: `linear-gradient(90deg, ${ch.color}, transparent)` }}
-          />
-        </motion.div>
-      ))}
 
       {/* Chapter transition card */}
       <AnimatePresence>

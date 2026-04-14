@@ -3,44 +3,68 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { Code2, Brain, Rocket, Coffee, Server, Palette } from 'lucide-react';
+import { Code2, Brain, Rocket, Coffee, Server, Palette, GraduationCap, Briefcase, Eye } from 'lucide-react';
 
 const highlights = [
   {
     icon: Code2,
-    title: 'Backend Architect',
-    desc: 'Building scalable backend systems with Java, Spring Boot, and Node.js. I engineer APIs that serve millions of requests with reliability.',
+    title: 'Full Stack Developer',
+    desc: 'Building scalable full-stack web applications using Java Spring Boot, REST APIs, and modern frontend frameworks. From backend architecture to responsive UIs.',
     color: 'blue',
   },
   {
-    icon: Brain,
-    title: 'AI Explorer',
-    desc: 'Exploring the frontiers of artificial intelligence — from image generation to natural language processing. The future is intelligent.',
+    icon: Eye,
+    title: 'Computer Vision Specialist',
+    desc: 'Built AI-based systems like helmet detection, number plate recognition, and smart traffic monitoring using Python, OpenCV, TensorFlow, and YOLO.',
     color: 'purple',
   },
   {
     icon: Rocket,
     title: 'Full-Stack Creator',
-    desc: 'Crafting immersive frontend experiences with React, Next.js, and Tailwind CSS. Every pixel is intentional, every interaction smooth.',
+    desc: 'Crafting immersive frontend experiences with React, Next.js, and Tailwind CSS. From hotel booking platforms to 3D portfolio experiences — every pixel is intentional.',
     color: 'cyan',
   },
   {
     icon: Server,
     title: 'System Designer',
-    desc: "Designing distributed systems, microservices, and database architectures that handle scale. Performance is not optional — it's fundamental.",
+    desc: 'Designing microservices, RESTful APIs, and database architectures with Spring Boot, Spring Security, MySQL, PostgreSQL, and MongoDB.',
     color: 'green',
   },
   {
     icon: Palette,
     title: 'Creative Technologist',
-    desc: 'Merging art and code. From 3D web experiences to generative design — technology should evoke emotion and wonder.',
+    desc: 'Merging art and code. From 3D web experiences with Three.js and WebGL to glassmorphism gaming platforms — technology should evoke emotion and wonder.',
     color: 'pink',
   },
   {
     icon: Coffee,
     title: 'Lifelong Learner',
-    desc: "Every day is an opportunity to learn something new. Whether it's a new framework, a design pattern, or an AI technique — curiosity drives everything.",
+    desc: 'Completed a CS degree and Java Full Stack Developer training program. Quick learner with a passion for AI, machine learning, and emerging technologies. Speaks English, Tamil, and Telugu.',
     color: 'amber',
+  },
+];
+
+const timeline = [
+  {
+    icon: GraduationCap,
+    title: 'Bachelor of Computer Science',
+    subtitle: 'University Graduation · Completed May 2025',
+    desc: 'Strong foundation in algorithms, data structures, software engineering, and computer architecture. GPA: 8.5/10',
+    color: 'blue',
+  },
+  {
+    icon: Brain,
+    title: 'AI & Computer Vision Projects',
+    subtitle: 'Academic & Personal Projects · 2023 – Present',
+    desc: 'Built helmet detection, number plate recognition, and traffic monitoring systems using Python, OpenCV, TensorFlow, and YOLO with 95%+ accuracy.',
+    color: 'purple',
+  },
+  {
+    icon: Briefcase,
+    title: 'Java Full Stack Developer Training',
+    subtitle: 'Professional Training Institute · Sep 2025 – Mar 2026',
+    desc: 'Mastered enterprise Java, Spring Boot, Spring Security, RESTful APIs, microservices, database design, and agile development methodologies.',
+    color: 'cyan',
   },
 ];
 
@@ -103,9 +127,9 @@ export default function AboutSection() {
             </span>
           </h2>
           <p className="text-gray-400 max-w-2xl mx-auto leading-relaxed">
-            I&apos;m Teja Priyan — a developer who believes technology should be both powerful and beautiful.
-            From architecting Java backend systems to exploring AI&apos;s creative potential,
-            I build solutions that make a difference.
+            I&apos;m Teja Priyan — a Computer Science graduate and Full Stack Developer with 2+ years of
+            hands-on experience building scalable web applications and AI-driven systems. Specialized in
+            Java Spring Boot, computer vision, and modern web technologies. Currently seeking new opportunities.
           </p>
         </motion.div>
 
@@ -116,13 +140,56 @@ export default function AboutSection() {
           ))}
         </div>
 
-        {/* Journey timeline teaser */}
+        {/* Education & Experience Timeline */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 0.8 }}
+          viewport={{ once: true }}
+          className="mt-16"
+        >
+          <h3 className="text-center text-lg font-semibold text-white mb-8">
+            <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+              Education & Journey
+            </span>
+          </h3>
+          <div className="relative max-w-3xl mx-auto">
+            {/* Timeline line */}
+            <div className="absolute left-6 top-0 bottom-0 w-px bg-gradient-to-b from-blue-500/40 via-purple-500/40 to-cyan-500/40 hidden md:block" />
+            {timeline.map((item, i) => {
+              const colors = colorMap[item.color] || colorMap.blue;
+              return (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.15, duration: 0.6 }}
+                  viewport={{ once: true }}
+                  className="relative flex gap-4 mb-6 md:pl-16 pl-0"
+                >
+                  <div className={`hidden md:flex absolute left-3 w-7 h-7 rounded-full ${colors.bg} border ${colors.border}
+                                   items-center justify-center z-10`}>
+                    <item.icon className={`w-3.5 h-3.5 ${colors.text}`} />
+                  </div>
+                  <div className={`flex-1 p-5 rounded-xl glass border border-white/5 hover:${colors.bg}
+                                   transition-all duration-300 group`}>
+                    <h4 className="text-base font-semibold text-white">{item.title}</h4>
+                    <p className={`text-xs ${colors.text} font-mono mt-1`}>{item.subtitle}</p>
+                    <p className="text-sm text-gray-400 mt-2 leading-relaxed">{item.desc}</p>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </motion.div>
+
+        {/* Quote */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ delay: 0.5, duration: 0.8 }}
           viewport={{ once: true }}
-          className="mt-16 text-center"
+          className="mt-12 text-center"
         >
           <div className="inline-flex items-center gap-4 px-6 py-3 rounded-full glass">
             <span className="text-sm text-gray-400">

@@ -1,0 +1,1461 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teja Priyan | Full Stack Developer & AI Enthusiast</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+    <style>
+        /* ── THEME VARIABLES ── */
+        :root {
+            --accent: #22d3ee;
+            --accent-dark: #06b6d4;
+            --accent-rgb: 34, 211, 238;
+            --bg: linear-gradient(135deg, #020617 0%, #0f172a 50%, #1a1a2e 100%);
+            --particle-color: #22d3ee;
+            --timeline-dot: #020617;
+        }
+
+        body.theme-purple {
+            --accent: #a855f7;
+            --accent-dark: #9333ea;
+            --accent-rgb: 168, 85, 247;
+            --bg: linear-gradient(135deg, #0d0118 0%, #1a0533 50%, #2d1b4e 100%);
+            --particle-color: #a855f7;
+            --timeline-dot: #0d0118;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg);
+            color: white;
+            overflow-x: hidden;
+            transition: background 0.5s ease;
+        }
+
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(var(--accent-rgb), 0.2);
+            border-radius: 15px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .glow {
+            box-shadow: 0 0 30px rgba(var(--accent-rgb), 0.3), inset 0 0 30px rgba(var(--accent-rgb), 0.1);
+        }
+
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+            cursor: pointer;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 20px 60px rgba(var(--accent-rgb), 0.4);
+        }
+
+        button {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: left 0.3s ease;
+        }
+
+        button:hover::before {
+            left: 100%;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(var(--accent-rgb), 0.7);
+        }
+
+        .nav-link {
+            position: relative;
+            padding-bottom: 2px;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .skill-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            background: rgba(var(--accent-rgb), 0.1);
+            border: 1px solid rgba(var(--accent-rgb), 0.4);
+            transition: all 0.3s ease;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .skill-badge:hover {
+            background: rgba(var(--accent-rgb), 0.3);
+            transform: scale(1.1) translateY(-5px);
+            border-color: rgba(var(--accent-rgb), 0.8);
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .gradient-animation {
+            background-size: 200% 200%;
+            animation: gradientShift 6s ease infinite;
+        }
+
+        .project-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(var(--accent-rgb), 0.2);
+            border-radius: 12px;
+            font-size: 0.85rem;
+            margin: 4px 4px 4px 0;
+        }
+
+        .stat-counter {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 40px;
+            margin-bottom: 30px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            background: var(--accent);
+            border-radius: 50%;
+            border: 3px solid var(--timeline-dot);
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 4px;
+            top: 20px;
+            width: 3px;
+            height: calc(100% + 20px);
+            background: rgba(var(--accent-rgb), 0.3);
+        }
+
+        .timeline-item:last-child::after {
+            display: none;
+        }
+
+        nav {
+            position: relative;
+            z-index: 10;
+        }
+
+        .content-section {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Resume Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(4px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #0f172a 0%, #1a1a2e 100%);
+            border: 1px solid rgba(var(--accent-rgb), 0.3);
+            border-radius: 20px;
+            width: 95%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow: auto;
+            padding: 0;
+            animation: slideUp 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid rgba(var(--accent-rgb), 0.2);
+            background: rgba(var(--accent-rgb), 0.05);
+            flex-shrink: 0;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            color: var(--accent);
+            font-size: 1.5rem;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: var(--accent);
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 0;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-btn:hover {
+            transform: rotate(90deg) scale(1.1);
+            color: var(--accent-dark);
+        }
+
+        .modal-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0;
+        }
+
+        #pdfCanvas {
+            width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .pdf-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            padding: 15px;
+            background: rgba(var(--accent-rgb), 0.05);
+            border-top: 1px solid rgba(var(--accent-rgb), 0.2);
+            flex-shrink: 0;
+        }
+
+        .pdf-controls button {
+            padding: 8px 12px;
+            background: rgba(var(--accent-rgb), 0.2);
+            border: 1px solid rgba(var(--accent-rgb), 0.5);
+            color: var(--accent);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .pdf-controls button:hover {
+            background: rgba(var(--accent-rgb), 0.4);
+            border-color: var(--accent);
+        }
+
+        .pdf-page-info {
+            color: var(--accent);
+            font-size: 0.9rem;
+            min-width: 100px;
+            text-align: center;
+        }
+
+        .resume-container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 15px;
+            color: #1a1a1a;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .resume-header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #22d3ee;
+            padding-bottom: 20px;
+        }
+
+        .resume-name {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #022d2e;
+            margin-bottom: 5px;
+        }
+
+        .resume-title {
+            font-size: 1.2rem;
+            color: #22d3ee;
+            margin-bottom: 10px;
+        }
+
+        .resume-contact {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .resume-contact a {
+            color: #22d3ee;
+            text-decoration: none;
+        }
+
+        .resume-section {
+            margin-bottom: 25px;
+        }
+
+        .resume-section-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #022d2e;
+            border-bottom: 2px solid #22d3ee;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+        }
+
+        .resume-item {
+            margin-bottom: 15px;
+        }
+
+        .resume-item-title {
+            font-weight: bold;
+            color: #022d2e;
+            font-size: 1.05rem;
+        }
+
+        .resume-item-subtitle {
+            color: #22d3ee;
+            font-style: italic;
+            font-size: 0.95rem;
+        }
+
+        .resume-item-description {
+            color: #555;
+            margin-top: 5px;
+            margin-left: 10px;
+        }
+
+        .resume-item-description li {
+            margin-left: 20px;
+            margin-top: 5px;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(var(--accent-rgb), 0.1);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(var(--accent-rgb), 0.4);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(var(--accent-rgb), 0.6);
+        }
+
+        /* ── THEME TOGGLE BUTTON ── */
+        .theme-toggle {
+            position: relative;
+            width: 64px;
+            height: 32px;
+            border-radius: 999px;
+            border: 2px solid rgba(var(--accent-rgb), 0.5);
+            background: rgba(var(--accent-rgb), 0.1);
+            cursor: pointer;
+            transition: all 0.4s ease;
+            display: flex;
+            align-items: center;
+            padding: 3px;
+        }
+
+        .theme-toggle::before {
+            display: none;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--accent);
+            box-shadow: 0 0 12px rgba(var(--accent-rgb), 0.5);
+            transform: scale(1.05);
+        }
+
+        .toggle-knob {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: var(--accent);
+            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), background 0.4s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            box-shadow: 0 0 8px rgba(var(--accent-rgb), 0.8);
+            flex-shrink: 0;
+        }
+
+        body.theme-purple .toggle-knob {
+            transform: translateX(32px);
+        }
+
+        .toggle-label {
+            position: absolute;
+            right: 5px;
+            font-size: 10px;
+            color: rgba(var(--accent-rgb), 0.7);
+            font-weight: bold;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        body.theme-purple .toggle-label {
+            left: 5px;
+            right: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="particles-js"></div>
+
+    <!-- NAVBAR -->
+    <nav
+        class="flex justify-between items-center p-6 max-w-7xl mx-auto sticky top-0 z-50 bg-gradient-to-b from-[rgba(2,6,23,0.9)] to-transparent backdrop-blur-md">
+        <h1 class="text-2xl font-bold gradient-text">Teja Priyan</h1>
+        <div class="hidden md:flex space-x-8 items-center">
+            <a href="#about" class="nav-link hover:text-cyan-300 transition">About</a>
+            <a href="#experience" class="nav-link hover:text-cyan-300 transition">Experience</a>
+            <a href="#skills" class="nav-link hover:text-cyan-300 transition">Skills</a>
+            <a href="#projects" class="nav-link hover:text-cyan-300 transition">Projects</a>
+            <a href="#contact" class="nav-link hover:text-cyan-300 transition">Contact</a>
+            <!-- Theme Toggle -->
+            <button class="theme-toggle" onclick="toggleTheme()" title="Switch theme" aria-label="Toggle color theme">
+                <div class="toggle-knob" id="toggleKnob">🌊</div>
+                <span class="toggle-label" id="toggleLabel">✦</span>
+            </button>
+        </div>
+        <div class="flex items-center gap-3 md:hidden">
+            <button class="theme-toggle" onclick="toggleTheme()" title="Switch theme" aria-label="Toggle color theme">
+                <div class="toggle-knob" id="toggleKnobMobile">🌊</div>
+                <span class="toggle-label">✦</span>
+            </button>
+            <button class="text-cyan-400"><i class="fas fa-bars text-2xl"></i></button>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="content-section text-center min-h-screen flex flex-col justify-center px-6 relative">
+        <div class="mb-8">
+            <div
+                class="w-24 h-24 mx-auto mb-6 rounded-full border-2 border-cyan-400 p-1 flex items-center justify-center glow">
+                <div
+                    class="w-full h-full rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center text-4xl font-bold">
+                    TP
+                </div>
+            </div>
+        </div>
+
+        <h1 class="text-6xl md:text-7xl font-bold mb-6">
+            Hi, I'm <span class="gradient-text">Teja Priyan</span>
+        </h1>
+
+        <h2 class="text-2xl md:text-3xl text-gray-300 mb-8">
+            <span id="typing"></span>
+        </h2>
+
+        <p class="max-w-2xl mx-auto text-gray-400 text-lg leading-relaxed mb-10">
+            Computer Science graduate and Full Stack Developer specializing in building intelligent systems, modern web
+            applications, and AI-driven solutions. Passionate about solving real-world problems through clean code and
+            innovative design.
+        </p>
+
+        <div class="flex gap-4 justify-center flex-wrap">
+            <button onclick="openResumeModal()"
+                class="bg-cyan-400 text-black px-8 py-3 rounded-xl font-semibold hover:scale-105 transition flex items-center gap-2">
+                <i class="fas fa-file-pdf"></i> View Resume
+            </button>
+            <button
+                class="border-2 border-cyan-400 text-cyan-400 px-8 py-3 rounded-xl font-semibold hover:bg-cyan-400 hover:text-black transition flex items-center gap-2">
+                <i class="fas fa-arrow-down"></i> View My Work
+            </button>
+        </div>
+
+        <div class="mt-16 flex justify-center gap-8 text-center">
+            <div>
+                <p class="stat-counter">5+</p>
+                <p class="text-gray-400">Projects</p>
+            </div>
+            <div>
+                <p class="stat-counter">2+</p>
+                <p class="text-gray-400">Years Dev</p>
+            </div>
+            <div>
+                <p class="stat-counter">100%</p>
+                <p class="text-gray-400">Dedication</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="content-section max-w-6xl mx-auto mt-20 px-6 py-16">
+        <h2 class="text-4xl md:text-5xl font-bold gradient-text mb-12 text-center">About Me</h2>
+
+        <div class="grid md:grid-cols-2 gap-10 items-center">
+            <div class="glass p-8 card-hover">
+                <h3 class="text-2xl font-semibold text-cyan-400 mb-4"><i class="fas fa-user-graduate mr-3"></i>Education
+                    & Background</h3>
+                <p class="text-gray-400 leading-7 mb-4">
+                    <strong class="text-cyan-300">Passionate about Computer Vision and AI systems.</strong> Completed a
+                    Computer Science degree in <strong class="text-cyan-300">May 2025</strong> and a 6-month Java Full
+                    Stack Developer training program in <strong class="text-cyan-300">2025–2026</strong>, gaining
+                    hands-on experience in enterprise-level web application development.
+                </p>
+                <p class="text-gray-400 leading-7">
+                    Currently building modern web applications and improving full stack and AI skills while actively
+                    seeking job opportunities. I've implemented intelligent systems including helmet detection, number
+                    plate recognition, and traffic monitoring.
+                </p>
+            </div>
+
+            <div class="glass p-8 card-hover">
+                <h3 class="text-2xl font-semibold text-cyan-400 mb-4"><i class="fas fa-lightbulb mr-3"></i>What I Do
+                </h3>
+                <ul class="space-y-3 text-gray-400">
+                    <li class="flex items-start">
+                        <span class="text-cyan-400 mr-3 mt-1">✓</span>
+                        <span>Build scalable full-stack web applications using Java Spring Boot and modern
+                            frameworks</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-cyan-400 mr-3 mt-1">✓</span>
+                        <span>Develop AI/ML systems with a focus on computer vision and intelligent automation</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-cyan-400 mr-3 mt-1">✓</span>
+                        <span>Create responsive, user-centric frontend interfaces with modern web technologies</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-cyan-400 mr-3 mt-1">✓</span>
+                        <span>Solve complex problems with clean, maintainable code and best practices</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience" class="content-section max-w-6xl mx-auto mt-20 px-6 py-16">
+        <h2 class="text-4xl md:text-5xl font-bold gradient-text mb-12 text-center">Experience & Training</h2>
+
+        <div class="max-w-3xl mx-auto">
+            <div class="timeline-item">
+                <h3 class="text-xl font-semibold text-cyan-400">AI & Computer Vision Projects</h3>
+                <p class="text-gray-400">Academic & Personal Projects | 2023</p>
+                <p class="text-gray-500 mt-2">
+                    Built AI-based systems like helmet detection, number plate recognition, and traffic monitoring using
+                    Python, OpenCV, and deep learning models.
+                </p>
+            </div>
+
+            <div class="timeline-item">
+                <h3 class="text-xl font-semibold text-cyan-400">Computer Science Degree</h3>
+                <p class="text-gray-400">University Graduation | Completed May 2025</p>
+                <p class="text-gray-500 mt-2">
+                    Graduated with a strong foundation in algorithms, data structures, software engineering principles,
+                    and computer architecture.
+                </p>
+            </div>
+
+            <div class="timeline-item">
+                <h3 class="text-xl font-semibold text-cyan-400">Java Full Stack Developer Training</h3>
+                <p class="text-gray-400">Professional Training Program | September 2025 · 6 Months</p>
+                <p class="text-gray-500 mt-2">
+                    Completed comprehensive training in enterprise Java development, Spring Boot architecture, database
+                    design, and modern web application development practices.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="content-section max-w-6xl mx-auto mt-20 px-6 py-16">
+        <h2 class="text-4xl md:text-5xl font-bold gradient-text mb-12 text-center">Technical Skills</h2>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="glass p-8">
+                <h3 class="text-xl font-semibold text-cyan-400 mb-6 flex items-center">
+                    <i class="fas fa-code mr-3"></i>Frontend
+                </h3>
+                <div class="flex flex-wrap gap-2">
+                    <span class="skill-badge">HTML/CSS</span>
+                    <span class="skill-badge">JavaScript</span>
+                    <span class="skill-badge">Tailwind CSS</span>
+                    <span class="skill-badge">Responsive Design</span>
+                </div>
+            </div>
+
+            <div class="glass p-8">
+                <h3 class="text-xl font-semibold text-cyan-400 mb-6 flex items-center">
+                    <i class="fas fa-database mr-3"></i>Backend & Database
+                </h3>
+                <div class="flex flex-wrap gap-2">
+                    <span class="skill-badge">Java</span>
+                    <span class="skill-badge">Spring Boot</span>
+                    <span class="skill-badge">SQL</span>
+                    <span class="skill-badge">REST APIs</span>
+                </div>
+            </div>
+
+            <div class="glass p-8">
+                <h3 class="text-xl font-semibold text-cyan-400 mb-6 flex items-center">
+                    <i class="fas fa-brain mr-3"></i>AI & Tools
+                </h3>
+                <div class="flex flex-wrap gap-2">
+                    <span class="skill-badge">Python</span>
+                    <span class="skill-badge">OpenCV</span>
+                    <span class="skill-badge">TensorFlow</span>
+                    <span class="skill-badge">Git</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-12 grid md:grid-cols-4 gap-6">
+            <div class="glass p-6 text-center card-hover">
+                <i class="fas fa-cube text-3xl text-cyan-400 mb-3"></i>
+                <p class="font-semibold">Full Stack Development</p>
+            </div>
+            <div class="glass p-6 text-center card-hover">
+                <i class="fas fa-eye text-3xl text-cyan-400 mb-3"></i>
+                <p class="font-semibold">Computer Vision</p>
+            </div>
+            <div class="glass p-6 text-center card-hover">
+                <i class="fas fa-robot text-3xl text-cyan-400 mb-3"></i>
+                <p class="font-semibold">AI & Machine Learning</p>
+            </div>
+            <div class="glass p-6 text-center card-hover">
+                <i class="fas fa-puzzle-piece text-3xl text-cyan-400 mb-3"></i>
+                <p class="font-semibold">Problem Solving</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="content-section max-w-7xl mx-auto mt-20 px-6 py-16">
+        <h2 class="text-4xl md:text-5xl font-bold gradient-text mb-12 text-center">Featured Projects</h2>
+
+        <div class="grid md:grid-cols-2 gap-8 mb-8">
+            <!-- Project 1 -->
+            <div class="glass p-8 card-hover group overflow-hidden rounded-2xl relative">
+                <div
+                    class="absolute top-0 right-0 w-32 h-32 bg-cyan-400/10 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500">
+                </div>
+
+                <div class="relative z-10">
+                    <div class="flex items-center gap-2 mb-4">
+                        <i class="fas fa-helmet-safety text-2xl text-cyan-400"></i>
+                        <h3 class="text-2xl font-semibold">Helmet Detection System</h3>
+                    </div>
+
+                    <p class="text-gray-400 mb-4 leading-7">
+                        Advanced AI-based system that uses computer vision to detect riders without helmets in
+                        real-time. Implements deep learning models for accurate safety enforcement and traffic
+                        compliance.
+                    </p>
+
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="project-tag">Python</span>
+                        <span class="project-tag">OpenCV</span>
+                        <span class="project-tag">TensorFlow</span>
+                        <span class="project-tag">Computer Vision</span>
+                    </div>
+
+                    <div class="flex gap-3">
+                        <button class="text-cyan-400 hover:text-cyan-300 transition flex items-center gap-2">
+                            <i class="fas fa-github"></i> Code
+                        </button>
+                        <button class="text-cyan-400 hover:text-cyan-300 transition flex items-center gap-2">
+                            <i class="fas fa-external-link-alt"></i> Demo
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="glass p-8 card-hover group overflow-hidden rounded-2xl relative">
+                <div
+                    class="absolute top-0 right-0 w-32 h-32 bg-cyan-400/10 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500">
+                </div>
+
+                <div class="relative z-10">
+                    <div class="flex items-center gap-2 mb-4">
+                        <i class="fas fa-traffic-light text-2xl text-cyan-400"></i>
+                        <h3 class="text-2xl font-semibold">Smart Traffic Monitoring</h3>
+                    </div>
+
+                    <p class="text-gray-400 mb-4 leading-7">
+                        IoT and AI-powered system for real-time traffic analysis, violation detection, and smart city
+                        infrastructure. Combines computer vision with IoT sensors for intelligent traffic management.
+                    </p>
+
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="project-tag">Python</span>
+                        <span class="project-tag">IoT</span>
+                        <span class="project-tag">YOLO</span>
+                        <span class="project-tag">Real-time Processing</span>
+                    </div>
+
+                    <div class="flex gap-3">
+                        <button class="text-cyan-400 hover:text-cyan-300 transition flex items-center gap-2">
+                            <i class="fas fa-github"></i> Code
+                        </button>
+                        <button class="text-cyan-400 hover:text-cyan-300 transition flex items-center gap-2">
+                            <i class="fas fa-external-link-alt"></i> Demo
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="glass p-8 card-hover group overflow-hidden rounded-2xl relative">
+                <div
+                    class="absolute top-0 right-0 w-32 h-32 bg-cyan-400/10 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500">
+                </div>
+
+                <div class="relative z-10">
+                    <div class="flex items-center gap-2 mb-4">
+                        <i class="fas fa-hotel text-2xl text-cyan-400"></i>
+                        <h3 class="text-2xl font-semibold">Hotel Booking Website</h3>
+                    </div>
+
+                    <p class="text-gray-400 mb-4 leading-7">
+                        Responsive full-stack hotel management system featuring room listings, real-time booking, user
+                        authentication, and admin dashboard. Built with modern web technologies for seamless user
+                        experience.
+                    </p>
+
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="project-tag">Java</span>
+                        <span class="project-tag">Spring Boot</span>
+                        <span class="project-tag">HTML/CSS</span>
+                        <span class="project-tag">SQL</span>
+                    </div>
+
+                    <div class="flex gap-3">
+                        <button class="text-cyan-400 hover:text-cyan-300 transition flex items-center gap-2">
+                            <i class="fas fa-github"></i> Code
+                        </button>
+                        <button onclick="window.open('https://veltechhotel.onrender.com/', '_blank')"
+                            class="bg-cyan-400 text-black px-4 py-1.5 rounded-lg font-semibold hover:scale-105 transition flex items-center gap-2">
+                            <i class="fas fa-external-link-alt"></i> Live
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 4 - Gaming Hub -->
+            <div class="glass p-8 card-hover group overflow-hidden rounded-2xl relative">
+                <div
+                    class="absolute top-0 right-0 w-32 h-32 bg-cyan-400/10 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500">
+                </div>
+
+                <div class="relative z-10">
+                    <div class="flex items-center gap-2 mb-4">
+                        <i class="fas fa-gamepad text-2xl text-cyan-400"></i>
+                        <h3 class="text-2xl font-semibold">Gaming Hub Platform</h3>
+                    </div>
+
+                    <p class="text-gray-400 mb-4 leading-7">
+                        Collection of interactive games and web-based gaming experiences. A fun, engaging platform
+                        showcasing frontend creativity and interactive UI design.
+                    </p>
+
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="project-tag">JavaScript</span>
+                        <span class="project-tag">HTML/CSS</span>
+                        <span class="project-tag">Interactive UI</span>
+                    </div>
+
+                    <div class="flex gap-3">
+                        <button onclick="window.open('https://tejagamehub.netlify.app/', '_blank')"
+                            class="bg-cyan-400 text-black px-4 py-1.5 rounded-lg font-semibold hover:scale-105 transition flex items-center gap-2">
+                            <i class="fas fa-external-link-alt"></i> Live
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 5 - Personal Web App -->
+            <div class="glass p-8 card-hover group overflow-hidden rounded-2xl relative">
+                <div
+                    class="absolute top-0 right-0 w-32 h-32 bg-cyan-400/10 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500">
+                </div>
+
+                <div class="relative z-10">
+                    <div class="flex items-center gap-2 mb-4">
+                        <i class="fas fa-spa text-2xl text-cyan-400"></i>
+                        <h3 class="text-2xl font-semibold">Glass‑Tech Sanctuary</h3>
+                    </div>
+
+                    <p class="text-gray-400 mb-4 leading-7">
+                        A serene, glass‑inspired personal portfolio & gaming hub. Explore Mind & Skill Suite games,
+                        medical & anatomy trivia, and clean code snippets — all wrapped in a minimalist, soothing
+                        aesthetic.
+                    </p>
+
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="project-tag">HTML/CSS</span>
+                        <span class="project-tag">JavaScript</span>
+                        <span class="project-tag">Game Design</span>
+                        <span class="project-tag">Interactive</span>
+                        <span class="project-tag">Glassmorphism</span>
+                    </div>
+
+                    <div class="flex gap-3">
+                        <button onclick="window.open('https://myself-tejapriyan.onrender.com/', '_blank')"
+                            class="bg-cyan-400 text-black px-4 py-1.5 rounded-lg font-semibold hover:scale-105 transition flex items-center gap-2">
+                            <i class="fas fa-external-link-alt"></i> Live
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 6 - 3D Portfolio -->
+            <div class="glass p-8 card-hover group overflow-hidden rounded-2xl relative md:col-span-2">
+                <div
+                    class="absolute top-0 right-0 w-32 h-32 bg-cyan-400/10 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500">
+                </div>
+
+                <div class="relative z-10">
+                    <div class="flex items-center gap-2 mb-4">
+                        <i class="fas fa-cube text-2xl text-cyan-400"></i>
+                        <h3 class="text-2xl font-semibold">3D Scroll Portfolio Experience</h3>
+                        <span
+                            class="ml-2 text-xs bg-cyan-400/20 border border-cyan-400/40 text-cyan-300 px-2 py-0.5 rounded-full">Coming
+                            Soon</span>
+                    </div>
+
+                    <p class="text-gray-400 mb-4 leading-7">
+                        Immersive scroll-based 3D storytelling portfolio — an Apple-style experience where each scroll
+                        reveals a new chapter of the story through cinematic 3D animations and transitions.
+                    </p>
+
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="project-tag">Three.js</span>
+                        <span class="project-tag">WebGL</span>
+                        <span class="project-tag">GSAP</span>
+                        <span class="project-tag">Scroll Animation</span>
+                        <span class="project-tag">3D Design</span>
+                    </div>
+
+                    <div class="flex gap-3">
+                        <button onclick="alert('Coming Soon — stay tuned! 🚀')"
+                            class="bg-cyan-400/20 border border-cyan-400/50 text-cyan-300 px-4 py-1.5 rounded-lg font-semibold hover:scale-105 transition flex items-center gap-2">
+                            <i class="fas fa-clock"></i> Coming Soon
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="content-section max-w-5xl mx-auto mt-20 px-6 py-16 text-center">
+        <h2 class="text-4xl md:text-5xl font-bold gradient-text mb-8">Let's Connect</h2>
+        <p class="text-gray-400 text-lg mb-10 max-w-2xl mx-auto">
+            I'm always interested in hearing about new projects and opportunities. Feel free to reach out through any of
+            the channels below!
+        </p>
+
+        <div class="flex justify-center gap-4 flex-wrap mb-12">
+            <a href="mailto:tejapriyan@example.com" target="_blank"
+                class="glass px-6 py-3 rounded-xl hover:scale-105 transition inline-flex items-center gap-3 card-hover">
+                <i class="fas fa-envelope text-xl text-cyan-400"></i>
+                <span>Email</span>
+            </a>
+            <a href="https://github.com/TejaPriyan" target="_blank" rel="noopener noreferrer"
+                class="glass px-6 py-3 rounded-xl hover:scale-105 transition inline-flex items-center gap-3 card-hover">
+                <i class="fab fa-github text-xl text-cyan-400"></i>
+                <span>GitHub</span>
+            </a>
+            <a href="https://www.linkedin.com/in/tejapriyan" target="_blank" rel="noopener noreferrer"
+                class="glass px-6 py-3 rounded-xl hover:scale-105 transition inline-flex items-center gap-3 card-hover">
+                <i class="fab fa-linkedin text-xl text-cyan-400"></i>
+                <span>LinkedIn</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- RESUME MODAL -->
+    <div id="resumeModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-file-pdf mr-3"></i>My Resume</h2>
+                <button class="close-btn" onclick="closeResumeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <!-- HTML RESUME VERSION -->
+                <div class="resume-container" id="htmlResume">
+                    <div class="resume-header">
+                        <div class="resume-name">TEJA PRIYAN</div>
+                        <div class="resume-title">Full Stack Developer | AI & Computer Vision Specialist</div>
+                        <div class="resume-contact">
+                            📧 tejapriyan@email.com | 📱 +91-XXXX-XXXX-XX |
+                            <a href="https://github.com/TejaPriyan" target="_blank">GitHub</a> |
+                            <a href="https://www.linkedin.com/in/tejapriyan" target="_blank">LinkedIn</a>
+                        </div>
+                    </div>
+
+                    <div class="resume-section">
+                        <div class="resume-section-title">PROFESSIONAL SUMMARY</div>
+                        <p style="color: #333;">
+                            Dedicated Full Stack Developer and Computer Science graduate with 2+ years of hands-on
+                            experience in building scalable web applications and AI-driven systems. Specialized in Java
+                            Spring Boot backend development, modern frontend technologies, and computer vision
+                            applications. Proven track record of delivering high-quality solutions with a focus on code
+                            excellence and user experience.
+                        </p>
+                    </div>
+
+                    <div class="resume-section">
+                        <div class="resume-section-title">TECHNICAL SKILLS</div>
+                        <div class="resume-item">
+                            <div class="resume-item-title">Languages:</div>
+                            <div class="resume-item-description" style="margin-left: 0;">Java, Python, JavaScript, HTML,
+                                CSS, SQL</div>
+                        </div>
+                        <div class="resume-item">
+                            <div class="resume-item-title">Frontend:</div>
+                            <div class="resume-item-description" style="margin-left: 0;">HTML5, CSS3, Tailwind CSS,
+                                JavaScript, Responsive Design</div>
+                        </div>
+                        <div class="resume-item">
+                            <div class="resume-item-title">Backend:</div>
+                            <div class="resume-item-description" style="margin-left: 0;">Java, Spring Boot, Spring
+                                Security, REST APIs, Microservices</div>
+                        </div>
+                        <div class="resume-item">
+                            <div class="resume-item-title">Databases:</div>
+                            <div class="resume-item-description" style="margin-left: 0;">MySQL, PostgreSQL, MongoDB,
+                                JDBC</div>
+                        </div>
+                        <div class="resume-item">
+                            <div class="resume-item-title">AI & ML:</div>
+                            <div class="resume-item-description" style="margin-left: 0;">Python, TensorFlow, OpenCV,
+                                YOLO, Computer Vision, Deep Learning</div>
+                        </div>
+                        <div class="resume-item">
+                            <div class="resume-item-title">Tools & Technologies:</div>
+                            <div class="resume-item-description" style="margin-left: 0;">Git, GitHub, Maven, Eclipse, VS
+                                Code, Postman, Docker</div>
+                        </div>
+                    </div>
+
+                    <div class="resume-section">
+                        <div class="resume-section-title">PROFESSIONAL EXPERIENCE</div>
+
+                        <div class="resume-item">
+                            <div class="resume-item-title">Java Full Stack Developer Training</div>
+                            <div class="resume-item-subtitle">Professional Training Institute | 6 Months (Sep 2025 - Mar
+                                2026)</div>
+                            <div class="resume-item-description">
+                                <ul>
+                                    <li>Mastered enterprise-level Java development and Spring Boot framework</li>
+                                    <li>Built multiple full-stack applications with modern database design</li>
+                                    <li>Implemented RESTful APIs and microservices architecture</li>
+                                    <li>Practiced agile development methodologies and version control</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="resume-item">
+                            <div class="resume-item-title">AI & Computer Vision Projects Development</div>
+                            <div class="resume-item-subtitle">Academic & Personal Projects | 2023 - Present</div>
+                            <div class="resume-item-description">
+                                <ul>
+                                    <li>Developed Helmet Detection System using deep learning and OpenCV</li>
+                                    <li>Created Smart Traffic Monitoring solution with IoT integration</li>
+                                    <li>Implemented real-time object detection algorithms using YOLO</li>
+                                    <li>Worked with TensorFlow and neural networks for model optimization</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="resume-section">
+                        <div class="resume-section-title">PROJECTS & ACHIEVEMENTS</div>
+
+                        <div class="resume-item">
+                            <div class="resume-item-title">🎯 Helmet Detection System</div>
+                            <div class="resume-item-description">
+                                Advanced AI system for real-time helmet detection using computer vision. Implemented CNN
+                                models with 95%+ accuracy for safety compliance and traffic monitoring.
+                            </div>
+                        </div>
+
+                        <div class="resume-item">
+                            <div class="resume-item-title">🚦 Smart Traffic Monitoring Platform</div>
+                            <div class="resume-item-description">
+                                IoT-enabled traffic management system combining computer vision with sensor data for
+                                real-time violation detection and smart city infrastructure management.
+                            </div>
+                        </div>
+
+                        <div class="resume-item">
+                            <div class="resume-item-title">🏨 Hotel Booking Management System</div>
+                            <div class="resume-item-description">
+                                Full-stack responsive web application with user authentication, real-time booking, and
+                                admin dashboard. Built with Java Spring Boot and modern frontend technologies.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="resume-section">
+                        <div class="resume-section-title">EDUCATION</div>
+                        <div class="resume-item">
+                            <div class="resume-item-title">Bachelor of Computer Science</div>
+                            <div class="resume-item-subtitle">University Graduation | Completed May 2025</div>
+                            <div class="resume-item-description">
+                                Strong academic foundation in algorithms, data structures, software engineering, and
+                                computer architecture. GPA: 8.5/10
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="resume-section">
+                        <div class="resume-section-title">CERTIFICATIONS & ACHIEVEMENTS</div>
+                        <div class="resume-item-description">
+                            <ul>
+                                <li>✓ Java Full Stack Developer Certification (2026)</li>
+                                <li>✓ Computer Vision & Deep Learning Specialist</li>
+                                <li>✓ Multiple successful AI/ML project implementations</li>
+                                <li>✓ Strong problem-solving and coding skills</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="resume-section">
+                        <div class="resume-section-title">ADDITIONAL INFORMATION</div>
+                        <div class="resume-item-description">
+                            <ul>
+                                <li>Languages: English, Tamil, Telugu</li>
+                                <li>Passionate about AI, machine learning, and emerging technologies</li>
+                                <li>Active contributor to open-source projects</li>
+                                <li>Quick learner with strong adaptability and teamwork skills</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pdf-controls">
+                <button onclick="downloadResume()">
+                    <i class="fas fa-download mr-2"></i> Download PDF
+                </button>
+                <button onclick="printResume()">
+                    <i class="fas fa-print mr-2"></i> Print
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="text-center mt-20 mb-10 text-gray-500 relative z-10">
+        <p>© 2026 Teja Priyan. All rights reserved.</p>
+        <p class="text-sm mt-2">Crafted with <span class="text-cyan-400">♥</span> and code</p>
+    </footer>
+
+    <script>
+        // ── THEME TOGGLE ──
+        let isPurple = false;
+
+        function toggleTheme() {
+            isPurple = !isPurple;
+            document.body.classList.toggle('theme-purple', isPurple);
+
+            const knob = document.getElementById('toggleKnob');
+            const knobMobile = document.getElementById('toggleKnobMobile');
+            const emoji = isPurple ? '🔮' : '🌊';
+            if (knob) knob.textContent = emoji;
+            if (knobMobile) knobMobile.textContent = emoji;
+
+            // Re-init particles with new color
+            const color = isPurple ? '#a855f7' : '#22d3ee';
+            if (window.pJSDom && window.pJSDom.length > 0) {
+                window.pJSDom[0].pJS.fn.vendors.destroypJS();
+                window.pJSDom = [];
+            }
+            initParticles(color);
+
+            // Save preference
+            localStorage.setItem('theme', isPurple ? 'purple' : 'cyan');
+        }
+
+        function initParticles(color) {
+            particlesJS("particles-js", {
+                particles: {
+                    number: { value: 60, density: { enable: true, value_area: 800 } },
+                    color: { value: color },
+                    shape: { type: "circle" },
+                    opacity: { value: 0.5, random: 0.2 },
+                    size: { value: 3, random: 2 },
+                    line_linked: {
+                        enable: true,
+                        distance: 150,
+                        color: color,
+                        opacity: 0.4,
+                        width: 1
+                    },
+                    move: { enable: true, speed: 1.5, direction: "none", random: true, straight: false, out_mode: "out" }
+                },
+                interactivity: {
+                    detect_on: "canvas",
+                    events: {
+                        onhover: { enable: true, mode: "grab" },
+                        onclick: { enable: true, mode: "repulse" },
+                        resize: true
+                    },
+                    modes: {
+                        grab: { distance: 200, line_linked: { opacity: 1 } },
+                        repulse: { distance: 400 }
+                    }
+                },
+                retina_detect: true
+            });
+        }
+
+        // Restore saved theme
+        (function () {
+            const saved = localStorage.getItem('theme');
+            if (saved === 'purple') {
+                isPurple = true;
+                document.body.classList.add('theme-purple');
+                const knob = document.getElementById('toggleKnob');
+                const knobMobile = document.getElementById('toggleKnobMobile');
+                if (knob) knob.textContent = '🔮';
+                if (knobMobile) knobMobile.textContent = '🔮';
+            }
+        })();
+
+        // Typed.js initialization
+        new Typed("#typing", {
+            strings: [
+                "Computer Vision Developer",
+                "Full Stack Developer",
+                "AI Enthusiast",
+                "Problem Solver",
+                "Java Developer"
+            ],
+            typeSpeed: 60,
+            backSpeed: 40,
+            loop: true,
+            backDelay: 1500
+        });
+
+        // ScrollReveal animations
+        ScrollReveal().reveal('.content-section', {
+            distance: '60px',
+            duration: 1000,
+            origin: 'bottom',
+            interval: 200,
+            easing: 'cubic-bezier(0.23, 1, 0.320, 1)'
+        });
+
+        // Counter animation
+        function animateCounter(element, target, duration = 2000) {
+            let start = 0;
+            const increment = target / (duration / 16);
+            const timer = setInterval(() => {
+                start += increment;
+                if (start >= target) {
+                    element.textContent = target;
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(start);
+                }
+            }, 16);
+        }
+
+        // Trigger counter animation on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counters = entry.target.querySelectorAll('.stat-counter');
+                    counters.forEach(counter => {
+                        const target = parseInt(counter.textContent);
+                        animateCounter(counter, target);
+                    });
+                    observer.unobserve(entry.target);
+                }
+            });
+        });
+
+        // Particles.js — init with saved or default theme color
+        initParticles(isPurple ? '#a855f7' : '#22d3ee');
+
+        // Resume Modal Functions
+        function openResumeModal() {
+            const modal = document.getElementById('resumeModal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeResumeModal() {
+            const modal = document.getElementById('resumeModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal on outside click
+        window.addEventListener('click', (event) => {
+            const modal = document.getElementById('resumeModal');
+            if (event.target === modal) {
+                closeResumeModal();
+            }
+        });
+
+        // Download Resume Function
+        function downloadResume() {
+            // Create HTML content
+            const resumeContent = document.getElementById('htmlResume').innerHTML;
+            const htmlContent = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <meta charset="UTF-8">
+          <title>Teja_Priyan_Resume.html</title>
+          <style>
+            body {
+              font-family: Arial, sans-serif;
+              line-height: 1.6;
+              color: #333;
+              max-width: 900px;
+              margin: 0 auto;
+              padding: 40px;
+            }
+            .resume-header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid #22d3ee; padding-bottom: 20px; }
+            .resume-name { font-size: 2rem; font-weight: bold; }
+            .resume-title { font-size: 1.2rem; color: #22d3ee; }
+            .resume-section { margin-bottom: 25px; }
+            .resume-section-title { font-size: 1.3rem; font-weight: bold; border-bottom: 2px solid #22d3ee; padding-bottom: 8px; margin-bottom: 15px; }
+            .resume-item { margin-bottom: 15px; }
+            .resume-item-title { font-weight: bold; }
+            .resume-item-subtitle { color: #22d3ee; font-style: italic; }
+            ul { margin-left: 20px; }
+            li { margin-top: 5px; }
+          </style>
+        </head>
+        <body>
+          ${resumeContent}
+        </body>
+        </html>
+      `;
+
+            // Create blob and download
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'Teja_Priyan_Resume.html';
+            link.click();
+            window.URL.revokeObjectURL(url);
+        }
+
+        // Print Resume Function
+        function printResume() {
+            const resumeContent = document.getElementById('htmlResume').innerHTML;
+            const printWindow = window.open('', '', 'width=900,height=600');
+            printWindow.document.write(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <meta charset="UTF-8">
+          <title>Teja_Priyan_Resume</title>
+          <style>
+            body {
+              font-family: Arial, sans-serif;
+              line-height: 1.6;
+              color: #333;
+              max-width: 900px;
+              margin: 0 auto;
+              padding: 20px;
+            }
+            .resume-header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid #000; padding-bottom: 20px; }
+            .resume-name { font-size: 2rem; font-weight: bold; }
+            .resume-title { font-size: 1.2rem; }
+            .resume-section { margin-bottom: 25px; }
+            .resume-section-title { font-size: 1.3rem; font-weight: bold; border-bottom: 2px solid #000; padding-bottom: 8px; margin-bottom: 15px; }
+            .resume-item { margin-bottom: 15px; }
+            .resume-item-title { font-weight: bold; }
+            .resume-item-subtitle { font-style: italic; }
+            ul { margin-left: 20px; }
+            li { margin-top: 5px; }
+            @media print {
+              body { padding: 0; }
+            }
+          </style>
+        </head>
+        <body onload="window.print(); window.close();">
+          ${resumeContent}
+        </body>
+        </html>
+      `);
+            printWindow.document.close();
+        }
+
+        // Smooth scroll behavior for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Add hero observer for animation
+        const heroSection = document.querySelector('section:first-of-type');
+        if (heroSection) {
+            observer.observe(heroSection);
+        }
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeResumeModal();
+            }
+        });
+    </script>
+</body>
+
+</html>

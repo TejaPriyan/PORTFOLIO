@@ -8,40 +8,51 @@ const skillCategories = [
     name: 'Languages',
     skills: [
       { name: 'Java',       level: 95, color: '#f89820' },
-      { name: 'JavaScript', level: 90, color: '#f7df1e' },
-      { name: 'Python',     level: 80, color: '#3776ab' },
-      { name: 'TypeScript', level: 75, color: '#3178c6' },
+      { name: 'Python',     level: 85, color: '#3776ab' },
+      { name: 'JavaScript', level: 88, color: '#f7df1e' },
+      { name: 'HTML/CSS',   level: 90, color: '#e44d26' },
       { name: 'SQL',        level: 85, color: '#00758f' },
     ],
   },
   {
     name: 'Frontend',
     skills: [
-      { name: 'React',         level: 90, color: '#61dafb' },
-      { name: 'Next.js',       level: 85, color: '#ffffff' },
+      { name: 'React',         level: 85, color: '#61dafb' },
+      { name: 'Next.js',       level: 80, color: '#ffffff' },
       { name: 'Tailwind CSS',  level: 90, color: '#06b6d4' },
       { name: 'Three.js',      level: 70, color: '#9ca3af' },
-      { name: 'Framer Motion', level: 75, color: '#bb4b96' },
+      { name: 'Responsive Design', level: 88, color: '#bb4b96' },
     ],
   },
   {
-    name: 'Backend & DevOps',
+    name: 'Backend & Database',
     skills: [
-      { name: 'Spring Boot', level: 90, color: '#6db33f' },
-      { name: 'Node.js',     level: 85, color: '#339933' },
-      { name: 'Express',     level: 85, color: '#9ca3af' },
-      { name: 'Docker',      level: 75, color: '#2496ed' },
-      { name: 'AWS',         level: 70, color: '#ff9900' },
+      { name: 'Spring Boot',     level: 90, color: '#6db33f' },
+      { name: 'Spring Security', level: 80, color: '#6db33f' },
+      { name: 'REST APIs',       level: 90, color: '#339933' },
+      { name: 'MySQL',           level: 85, color: '#00758f' },
+      { name: 'PostgreSQL',      level: 80, color: '#336791' },
+      { name: 'MongoDB',         level: 75, color: '#47a248' },
     ],
   },
   {
-    name: 'AI & Data',
+    name: 'AI & Computer Vision',
     skills: [
-      { name: 'TensorFlow', level: 70, color: '#ff6f00' },
-      { name: 'OpenAI API', level: 80, color: '#8b5cf6' },
-      { name: 'MongoDB',    level: 80, color: '#47a248' },
-      { name: 'PostgreSQL', level: 85, color: '#336791' },
-      { name: 'Redis',      level: 75, color: '#dc382d' },
+      { name: 'OpenCV',      level: 85, color: '#5c3ee8' },
+      { name: 'TensorFlow',  level: 78, color: '#ff6f00' },
+      { name: 'YOLO',        level: 80, color: '#dc382d' },
+      { name: 'Deep Learning', level: 75, color: '#8b5cf6' },
+      { name: 'Computer Vision', level: 85, color: '#06b6d4' },
+    ],
+  },
+  {
+    name: 'Tools & DevOps',
+    skills: [
+      { name: 'Git/GitHub',  level: 90, color: '#f05032' },
+      { name: 'Docker',      level: 70, color: '#2496ed' },
+      { name: 'Maven',       level: 80, color: '#c71a36' },
+      { name: 'VS Code',     level: 92, color: '#007acc' },
+      { name: 'Postman',     level: 85, color: '#ff6c37' },
     ],
   },
 ];
@@ -115,7 +126,7 @@ export default function SkillsSection() {
             </span>
           </h2>
           <p className="text-gray-400 max-w-xl mx-auto">
-            A diverse toolkit refined through real-world projects and continuous learning.
+            A diverse toolkit refined through a CS degree, Java Full Stack training, and hands-on AI & computer vision projects.
           </p>
         </motion.div>
 

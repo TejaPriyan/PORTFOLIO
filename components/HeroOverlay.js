@@ -5,10 +5,11 @@ import { useEffect, useState } from 'react';
 import { ChevronDown, Sparkles } from 'lucide-react';
 
 const titles = [
+  'Full Stack Developer',
+  'Computer Vision Developer',
+  'AI Enthusiast',
   'Java Developer',
-  'Tech Enthusiast',
-  'AI Developer',
-  'Full-Stack Engineer',
+  'Problem Solver',
   'Digital Creator',
 ];
 
@@ -19,10 +20,10 @@ export default function HeroOverlay({ scrollProgress }) {
 
   useEffect(() => {
     const currentTitle = titles[titleIndex];
-    let charIndex = 0;
     let timeout;
 
     if (isTyping) {
+      let charIndex = 0;
       timeout = setInterval(() => {
         charIndex++;
         setDisplayText(currentTitle.substring(0, charIndex));
@@ -32,10 +33,11 @@ export default function HeroOverlay({ scrollProgress }) {
         }
       }, 80);
     } else {
+      let charIndex = currentTitle.length;
       timeout = setInterval(() => {
-        charIndex = displayText.length - 1;
-        setDisplayText((prev) => prev.substring(0, prev.length - 1));
-        if (displayText.length <= 1) {
+        charIndex--;
+        setDisplayText(currentTitle.substring(0, charIndex));
+        if (charIndex <= 0) {
           clearInterval(timeout);
           setTitleIndex((prev) => (prev + 1) % titles.length);
           setIsTyping(true);
@@ -44,7 +46,7 @@ export default function HeroOverlay({ scrollProgress }) {
     }
 
     return () => clearInterval(timeout);
-  }, [titleIndex, isTyping, displayText.length]);
+  }, [titleIndex, isTyping]);
 
   const opacity = Math.max(0, 1 - scrollProgress * 4);
 
@@ -84,11 +86,8 @@ export default function HeroOverlay({ scrollProgress }) {
         className="text-center mb-6"
       >
         <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-tight">
-          <span className="block bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent">
-            Teja
-          </span>
-          <span className="block bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent text-glow">
-            Priyan
+          <span className="block bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent text-glow font-mono">
+            Teja Priyan
           </span>
         </h1>
       </motion.div>
@@ -117,8 +116,9 @@ export default function HeroOverlay({ scrollProgress }) {
         transition={{ delay: 1.6, duration: 0.8 }}
         className="text-sm sm:text-base text-gray-400 max-w-md text-center leading-relaxed mb-12"
       >
-        Crafting scalable systems with Java, building intelligent solutions with AI,
-        and designing experiences that inspire.
+        Computer Science graduate and Full Stack Developer specializing in building
+        intelligent systems, modern web applications, and AI-driven solutions.
+        Passionate about solving real-world problems through clean code and innovative design.
       </motion.p>
 
       {/* CTA Buttons */}

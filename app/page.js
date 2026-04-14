@@ -13,7 +13,7 @@ import PriyaAssistant from '@/components/PriyaAssistant';
 import NavigationBar from '@/components/NavigationBar';
 import SoundManager from '@/components/SoundManager';
 import ParticleField from '@/components/ParticleField';
-import CinematicOverlay from '@/components/CinematicOverlay';
+
 
 const Scene3D = dynamic(() => import('@/components/Scene3D'), {
   ssr: false,
@@ -112,8 +112,7 @@ export default function HomePage() {
         onToggleSound={() => setSoundEnabled(!soundEnabled)}
       />
 
-      {/* Cinematic chapter overlays */}
-      <CinematicOverlay activeSection={activeSection} />
+
 
       {/* Scrollable content */}
       <div
