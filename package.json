@@ -11,7 +11,7 @@
   "dependencies": {
     "@react-three/drei": "^9.122.0",
     "@react-three/fiber": "^8.17.14",
-    "@react-three/postprocessing": "^3.0.4",
+    "@react-three/postprocessing": "^2.16.2",
     "framer-motion": "^11.18.2",
     "lucide-react": "^0.511.0",
     "next": "14.2.30",
