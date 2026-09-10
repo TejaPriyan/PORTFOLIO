@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
@@ -7,38 +7,38 @@ import { Sparkles, Zap, Eye, Cpu, Network, Lightbulb } from 'lucide-react';
 const visionPoints = [
   {
     icon: Sparkles,
-    title: 'Generative AI is Rewriting Creativity',
-    text: 'The line between human and machine creativity is blurring. AI models can now compose music, write poetry, and generate photorealistic images. I believe the developers who embrace this will shape the next decade.',
+    title: 'Generative AI & Multimodal Workspaces',
+    text: 'Large language models and multimodal vision reasoning are reshaping software development. Through projects like Teja Priyan AI, I build production interfaces featuring real-time streaming, live code execution, and vision reasoning.',
     color: 'purple',
   },
   {
-    icon: Zap,
-    title: 'AI + Java = Enterprise Intelligence',
-    text: 'Java remains the backbone of enterprise systems. Through my Spring Boot training, I\'ve seen firsthand how integrating AI into these systems — from predictive analytics to intelligent automation — creates real-world impact.',
+    icon: Cpu,
+    title: 'Open-Weight LLMs & Precision Fine-Tuning',
+    text: 'Domain intelligence requires tailored training. With Tejapriyan-8B, I engineered a fine-tuned 8B LLM using LoRA/QLoRA for verifiable Text-to-SQL logic, distributing weights via Hugging Face, GGUF, and Ollama.',
     color: 'blue',
   },
   {
     icon: Eye,
-    title: 'Computer Vision Will Be Everywhere',
-    text: 'From my helmet detection system with 95%+ accuracy to smart traffic monitoring — I\'ve built systems that "see" and understand the real world. Computer vision is transforming safety, transportation, and healthcare.',
+    title: 'Computer Vision & Edge Perception',
+    text: 'From my helmet detection system with 95%+ accuracy to smart traffic monitoring with YOLO, building machines that "see" and interpret real-world scenes is vital for public safety, IoT, and automation.',
     color: 'cyan',
   },
   {
-    icon: Cpu,
-    title: 'Edge AI Changes the Game',
-    text: 'Running AI models on edge devices — phones, IoT sensors, drones — means intelligence without latency. My traffic monitoring project combines IoT sensors with YOLO, bringing real-time AI to the streets.',
+    icon: Zap,
+    title: 'Full-Stack Architecture for AI',
+    text: 'Modern AI requires robust backbones. Combining Java Spring Boot microservices and FastAPI endpoints with high-performance Next.js frontends ensures intelligent systems remain lightning-fast and dependable.',
     color: 'green',
   },
   {
     icon: Network,
-    title: 'AI-First Architecture',
-    text: 'Tomorrow\'s applications will be designed with AI at the core, not bolted on as an afterthought. Microservices that think, APIs that learn, and databases that predict — that\'s what I\'m building toward.',
+    title: 'AI-First Application Design',
+    text: 'Tomorrow\'s software will be architected around intelligence: self-evaluating workflows, schema-aware queries, and dynamic user experiences that adapt automatically to context.',
     color: 'pink',
   },
   {
     icon: Lightbulb,
-    title: "The Future I'm Building Toward",
-    text: 'I envision a world where AI amplifies human potential — from helmet detection saving lives to intelligent traffic systems reducing congestion. Every project brings me closer to that future.',
+    title: "Building the Intelligent Future",
+    text: 'I envision an ecosystem where AI dramatically amplifies human potential — from improving street safety to accelerating technical discovery. Every project I build is dedicated to that mission.',
     color: 'amber',
   },
 ];
@@ -79,12 +79,12 @@ export default function AIVisionSection() {
             </span>
           </h2>
           <p className="text-gray-400 max-w-2xl mx-auto leading-relaxed">
-            AI isn&apos;t just a buzzword to me — it&apos;s the most transformative technology of our lifetime.
-            Here&apos;s how I see the future unfolding, and where I fit in.
+            AI isn&apos;t just a buzzword to me — it&apos;s the foundational technology driving the next generation of computing.
+            Here&apos;s how I view this technological frontier and the systems I am building.
           </p>
         </motion.div>
 
-        {/* Vision cards — neon hologram borders */}
+        {/* Vision cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {visionPoints.map((point, i) => {
             const colors = colorClasses[point.color];

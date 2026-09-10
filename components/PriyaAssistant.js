@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -15,15 +15,15 @@ const quickActions = [
 ];
 
 const knowledgeBase = {
-  greeting: `Hey there! 👋 I'm **Priya**, Teja's digital portfolio guide. I can help you navigate this portfolio, learn about Teja's work, or point you to his resume. What would you like to know?`,
-  about: `**Teja Priyan** is a Computer Science graduate (May 2025) and Full Stack Developer with 2+ years of hands-on experience:\n\n• **Java & Spring Boot** — Enterprise backend development, REST APIs, microservices\n• **Computer Vision** — Helmet detection, number plate recognition, traffic monitoring\n• **Full-Stack Development** — React, Next.js, HTML/CSS, Tailwind\n• **AI & Machine Learning** — TensorFlow, OpenCV, YOLO, deep learning\n\nHe completed a 6-month Java Full Stack Developer training (Sep 2025 – Mar 2026) and speaks English, Tamil, and Telugu.`,
-  skills: `Teja's core skills include:\n\n🔹 **Languages:** Java (95%), Python (85%), JavaScript (88%), HTML/CSS, SQL\n🔹 **Frontend:** React, Next.js, Tailwind CSS, Three.js, Responsive Design\n🔹 **Backend:** Spring Boot, Spring Security, REST APIs, MySQL, PostgreSQL, MongoDB\n🔹 **AI/CV:** OpenCV, TensorFlow, YOLO, Deep Learning, Computer Vision\n🔹 **Tools:** Git/GitHub, Docker, Maven, VS Code, Postman`,
-  projects: `Teja has built impressive real-world projects:\n\n🛡️ **Helmet Detection System** — AI-based real-time helmet detection with 95%+ accuracy using OpenCV & TensorFlow\n🚦 **Smart Traffic Monitoring** — IoT + YOLO powered traffic analysis and violation detection\n🏨 **Hotel Booking Website** — Full-stack booking system with Spring Boot (Live: veltechhotel.onrender.com)\n🎮 **Gaming Hub Platform** — Interactive web games collection (Live: tejagamehub.netlify.app)\n✨ **Glass-Tech Sanctuary** — Glassmorphism gaming & trivia hub (Live: myself-tejapriyan.onrender.com)\n🌐 **3D Portfolio** — This immersive Three.js + Next.js cinematic experience`,
-  ai: `Teja is deeply passionate about AI and Computer Vision. His real-world experience includes:\n\n• Built a **Helmet Detection System** with CNNs achieving **95%+ accuracy**\n• Created **Smart Traffic Monitoring** combining IoT sensors with YOLO\n• Implemented real-time **object detection** and **number plate recognition**\n• Working with **TensorFlow**, **OpenCV**, and **deep learning** models\n\nHe believes AI will transform every industry and is actively building AI-powered solutions.`,
-  contact: `You can reach Teja through:\n\n📧 **Email:** tejapriyan@email.com\n💼 **LinkedIn:** linkedin.com/in/tejapriyan\n🐙 **GitHub:** github.com/TejaPriyan\n🐦 **Twitter:** twitter.com/tejapriyan\n\nOr use the contact form on this portfolio!`,
-  resume: `You can download Teja's resume directly:\n\n📄 [Click here to download](/resume.pdf)\n\nIt includes his education (B.Sc Computer Science, GPA 8.5/10), Java Full Stack training, AI/CV project details, and certifications including Java Full Stack Developer Certification (2026).`,
-  education: `Teja's education journey:\n\n🎓 **Bachelor of Computer Science** — Completed May 2025 (GPA: 8.5/10)\n💼 **Java Full Stack Developer Training** — Professional Training Institute (Sep 2025 – Mar 2026)\n🏆 **Certifications:** Java Full Stack Developer Certification (2026), Computer Vision & Deep Learning Specialist`,
-  default: `I'm not sure about that specific topic, but I can help you with:\n\n• **About Teja** — Who he is and what he does\n• **Skills** — His technical expertise\n• **Projects** — What he's built\n• **AI Vision** — His thoughts on AI & the future\n• **Education** — Degrees and certifications\n• **Contact** — How to reach him\n• **Resume** — Download his CV\n\nJust ask!`,
+  greeting: `Hey there! 👋 I'm **Priya**, Teja's digital portfolio guide. I can help you navigate this 3D portfolio, learn about Teja's AI engineering and full-stack projects, or view his resume. What would you like to know?`,
+  about: `**Teja Priyan** is an **AI Engineer & Full Stack Developer**:\n\n• **AI & LLMs:** Fine-tuned Tejapriyan-8B model for SQL reasoning, and creator of Teja Priyan AI multimodal workspace\n• **Computer Vision:** Real-time helmet compliance detection (95%+ accuracy), YOLO traffic analysis, and edge vision\n• **Full-Stack Engineering:** React, Next.js, Three.js, Java Spring Boot, FastAPI, and Tailwind CSS\n• **Education:** Bachelor of Computer Science (Completed May 2025, GPA 8.5/10) & Java Full Stack Developer training\n\nHe speaks English, Tamil, and Telugu.`,
+  skills: `Teja's core skills include:\n\n🚀 **AI & LLMs:** Fine-tuning (LoRA/QLoRA), PyTorch, Hugging Face, GGUF, Ollama, Multimodal AI, Prompt Engineering\n🎯 **Computer Vision:** OpenCV, YOLO (v8/v11), TensorFlow, CNNs, Deep Learning\n💻 **Languages:** Python, Java, JavaScript, TypeScript, SQL, HTML5/CSS3\n⚡ **Frontend & 3D:** React, Next.js, Three.js, WebGL, Framer Motion, Tailwind CSS\n🛠️ **Backend & Tools:** Spring Boot, FastAPI, PostgreSQL, MySQL, MongoDB, Docker, Git`,
+  projects: `Teja's featured projects:\n\n🧠 **Teja Priyan AI Platform** — Production multimodal AI workspace with live code execution, streaming, and vision reasoning (Live: tejapriyan-ai.vercel.app)\n⚡ **Tejapriyan-8B Model** — Fine-tuned 8B LLM for verifiable SQL reasoning (Live: tejapriyan-ai-model.vercel.app | Weights: huggingface.co/teja161615/Tejapriyan-8B-GGUF)\n🪖 **Helmet Detection System** — 95%+ accurate real-time CV detection with OpenCV & TensorFlow\n🚦 **Smart Traffic Monitoring** — IoT + YOLO real-time vehicle & violation detection\n🏨 **Hotel Booking Website** — Full-stack booking system with Spring Boot (Live: veltechhotel.onrender.com)\n🎮 **Gaming Hub Platform** — Interactive web games collection (Live: tejagamehub.netlify.app)\n✨ **Glass-Tech Sanctuary** — Glassmorphic gaming & trivia hub (Live: myself-tejapriyan.onrender.com)\n🌐 **3D Portfolio** — This immersive Three.js + Next.js cinematic experience`,
+  ai: `Teja is deeply passionate about AI engineering and research:\n\n• **Tejapriyan-8B Model**: Fine-tuned 8B parameter model specialized in verifiable Text-to-SQL reasoning\n• **Teja Priyan AI**: Multimodal workspace with interactive sandbox and vision intelligence\n• **Hugging Face Model Repository**: GGUF weights published for local Ollama and NPX CLI usage\n• **Computer Vision**: Real-time CNN helmet compliance and YOLO traffic monitoring systems\n\nHe is dedicated to engineering practical, verifiable, and beautiful AI-driven applications.`,
+  contact: `You can reach Teja through:\n\n📧 **Email:** teja1616150@gmail.com\n💼 **LinkedIn:** linkedin.com/in/tejapriyan\n💻 **GitHub:** github.com/TejaPriyan\n🤗 **Hugging Face:** huggingface.co/teja161615\n\nOr drop a message in the contact form below!`,
+  resume: `You can download Teja's resume directly:\n\n📄 [Click here to download](/resume.pdf)\n\nIt includes his degree in Computer Science, Java Full Stack certification, AI & Computer Vision projects, and work experience.`,
+  education: `Teja's education journey:\n\n🎓 **Bachelor of Computer Science** — Completed May 2025 (GPA: 8.5/10)\n💼 **Java Full Stack Developer Training** — Professional Training Institute (Sep 2025 — Mar 2026)\n📜 **Certifications:** Java Full Stack Developer Certification (2026), Computer Vision & Deep Learning Specialist`,
+  default: `I'm not sure about that specific topic, but I can help you with:\n\n• **About Teja** — Who he is and his AI engineering background\n• **Skills** — AI, LLMs, Computer Vision, Full Stack\n• **Projects** — Teja Priyan AI, Tejapriyan-8B, and web apps\n• **AI Vision** — His vision for generative AI & models\n• **Education** — Degrees and certifications\n• **Contact** — How to connect with him\n• **Resume** — Download his CV\n\nJust ask!`,
 };
 
 function parseResponse(input) {
@@ -31,8 +31,8 @@ function parseResponse(input) {
   if (lower.includes('hello') || lower.includes('hi') || lower.includes('hey')) return knowledgeBase.greeting;
   if (lower.includes('about') || lower.includes('who') || lower.includes('teja')) return knowledgeBase.about;
   if (lower.includes('skill') || lower.includes('tech') || lower.includes('stack') || lower.includes('know')) return knowledgeBase.skills;
-  if (lower.includes('project') || lower.includes('built') || lower.includes('work') || lower.includes('portfolio')) return knowledgeBase.projects;
-  if (lower.includes('ai') || lower.includes('machine learning') || lower.includes('artificial') || lower.includes('future') || lower.includes('vision') || lower.includes('computer vision')) return knowledgeBase.ai;
+  if (lower.includes('project') || lower.includes('built') || lower.includes('work') || lower.includes('portfolio') || lower.includes('ai model') || lower.includes('8b')) return knowledgeBase.projects;
+  if (lower.includes('ai') || lower.includes('machine learning') || lower.includes('artificial') || lower.includes('future') || lower.includes('vision') || lower.includes('llm') || lower.includes('hugging')) return knowledgeBase.ai;
   if (lower.includes('contact') || lower.includes('reach') || lower.includes('email') || lower.includes('hire')) return knowledgeBase.contact;
   if (lower.includes('resume') || lower.includes('cv') || lower.includes('download')) return knowledgeBase.resume;
   if (lower.includes('education') || lower.includes('degree') || lower.includes('certif') || lower.includes('training') || lower.includes('college') || lower.includes('university')) return knowledgeBase.education;
@@ -102,7 +102,7 @@ export default function PriyaAssistant({ onNavigate }) {
         onNavigate?.('contact');
         setMessages((prev) => [...prev,
           { role: 'user', text: 'Contact Teja', time: new Date() },
-          { role: 'priya', text: 'Taking you to the contact section! ✉️', time: new Date() },
+          { role: 'priya', text: 'Taking you to the contact section! ✨', time: new Date() },
         ]);
         setIsOpen(false);
         break;
@@ -181,7 +181,7 @@ export default function PriyaAssistant({ onNavigate }) {
                   Priya
                   <Sparkles className="w-3 h-3 text-purple-400" />
                 </p>
-                <p className="text-[10px] text-gray-500 font-mono">Teja&apos;s Digital Guide • Online</p>
+                <p className="text-[10px] text-gray-500 font-mono">Teja&apos;s Digital Guide · Online</p>
               </div>
               <div className="flex items-center gap-1">
                 <Terminal className="w-3.5 h-3.5 text-gray-600" />

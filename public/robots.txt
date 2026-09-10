@@ -1,0 +1,4 @@
+﻿User-agent: *
+Allow: /
+
+Sitemap: https://portfoliotejapriyan.vercel.app/sitemap.xml

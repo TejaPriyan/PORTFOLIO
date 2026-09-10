@@ -1,16 +1,15 @@
-'use client';
+﻿'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { ChevronDown, Sparkles } from 'lucide-react';
 
 const titles = [
+  'AI Engineer & Researcher',
+  'LLM & Multimodal AI Builder',
+  'Computer Vision Specialist',
   'Full Stack Developer',
-  'Computer Vision Developer',
-  'AI Enthusiast',
-  'Java Developer',
-  'Problem Solver',
-  'Digital Creator',
+  'Problem Solver & Creator',
 ];
 
 export default function HeroOverlay({ scrollProgress }) {
@@ -55,7 +54,7 @@ export default function HeroOverlay({ scrollProgress }) {
       className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4"
       style={{ opacity }}
     >
-      {/* Cinematic tagline — appears first */}
+      {/* Cinematic tagline */}
       <motion.p
         initial={{ opacity: 0, letterSpacing: '0.5em' }}
         animate={{ opacity: 1, letterSpacing: '0.2em' }}
@@ -114,11 +113,10 @@ export default function HeroOverlay({ scrollProgress }) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.6, duration: 0.8 }}
-        className="text-sm sm:text-base text-gray-400 max-w-md text-center leading-relaxed mb-12"
+        className="text-sm sm:text-base text-gray-400 max-w-lg text-center leading-relaxed mb-12"
       >
-        Computer Science graduate and Full Stack Developer specializing in building
-        intelligent systems, modern web applications, and AI-driven solutions.
-        Passionate about solving real-world problems through clean code and innovative design.
+        AI Engineer &amp; Full Stack Developer specializing in fine-tuning Large Language Models,
+        high-throughput multimodal AI systems, real-time computer vision, and immersive web experiences.
       </motion.p>
 
       {/* CTA Buttons */}

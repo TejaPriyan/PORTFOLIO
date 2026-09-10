@@ -1,58 +1,57 @@
-'use client';
+﻿'use client';
 
 import { motion, useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
 
 const skillCategories = [
   {
-    name: 'Languages',
+    name: 'AI & Large Language Models',
     skills: [
-      { name: 'Java',       level: 95, color: '#f89820' },
-      { name: 'Python',     level: 85, color: '#3776ab' },
-      { name: 'JavaScript', level: 88, color: '#f7df1e' },
-      { name: 'HTML/CSS',   level: 90, color: '#e44d26' },
-      { name: 'SQL',        level: 85, color: '#00758f' },
+      { name: 'LLM Fine-Tuning (LoRA/QLoRA)', level: 90, color: '#a855f7' },
+      { name: 'PyTorch & Transformers',      level: 86, color: '#ee4c2c' },
+      { name: 'Hugging Face & GGUF Quantization', level: 92, color: '#ffcc00' },
+      { name: 'Ollama & Local Model Serving', level: 88, color: '#06b6d4' },
+      { name: 'Multimodal AI & Prompt Engineering', level: 85, color: '#ec4899' },
     ],
   },
   {
-    name: 'Frontend',
+    name: 'Computer Vision & Deep Learning',
     skills: [
-      { name: 'React',         level: 85, color: '#61dafb' },
-      { name: 'Next.js',       level: 80, color: '#ffffff' },
-      { name: 'Tailwind CSS',  level: 90, color: '#06b6d4' },
-      { name: 'Three.js',      level: 70, color: '#9ca3af' },
-      { name: 'Responsive Design', level: 88, color: '#bb4b96' },
+      { name: 'OpenCV',               level: 88, color: '#5c3ee8' },
+      { name: 'YOLO (v8/v11)',        level: 85, color: '#dc382d' },
+      { name: 'TensorFlow',           level: 80, color: '#ff6f00' },
+      { name: 'CNNs & Object Detection', level: 86, color: '#8b5cf6' },
+      { name: 'Real-time Edge Processing', level: 82, color: '#00c7b7' },
     ],
   },
   {
-    name: 'Backend & Database',
+    name: 'Programming Languages',
     skills: [
-      { name: 'Spring Boot',     level: 90, color: '#6db33f' },
-      { name: 'Spring Security', level: 80, color: '#6db33f' },
-      { name: 'REST APIs',       level: 90, color: '#339933' },
-      { name: 'MySQL',           level: 85, color: '#00758f' },
-      { name: 'PostgreSQL',      level: 80, color: '#336791' },
-      { name: 'MongoDB',         level: 75, color: '#47a248' },
+      { name: 'Python',               level: 92, color: '#3776ab' },
+      { name: 'Java',                 level: 90, color: '#f89820' },
+      { name: 'JavaScript / TypeScript', level: 88, color: '#f7df1e' },
+      { name: 'SQL',                  level: 88, color: '#00758f' },
+      { name: 'HTML5 / CSS3',         level: 92, color: '#e44d26' },
     ],
   },
   {
-    name: 'AI & Computer Vision',
+    name: 'Frontend & 3D Web',
     skills: [
-      { name: 'OpenCV',      level: 85, color: '#5c3ee8' },
-      { name: 'TensorFlow',  level: 78, color: '#ff6f00' },
-      { name: 'YOLO',        level: 80, color: '#dc382d' },
-      { name: 'Deep Learning', level: 75, color: '#8b5cf6' },
-      { name: 'Computer Vision', level: 85, color: '#06b6d4' },
+      { name: 'React & Next.js',      level: 88, color: '#61dafb' },
+      { name: 'Tailwind CSS',         level: 92, color: '#06b6d4' },
+      { name: 'Three.js & WebGL',     level: 78, color: '#9ca3af' },
+      { name: 'Framer Motion',        level: 86, color: '#ec4899' },
+      { name: 'Responsive UI Architecture', level: 90, color: '#bb4b96' },
     ],
   },
   {
-    name: 'Tools & DevOps',
+    name: 'Backend & Enterprise',
     skills: [
-      { name: 'Git/GitHub',  level: 90, color: '#f05032' },
-      { name: 'Docker',      level: 70, color: '#2496ed' },
-      { name: 'Maven',       level: 80, color: '#c71a36' },
-      { name: 'VS Code',     level: 92, color: '#007acc' },
-      { name: 'Postman',     level: 85, color: '#ff6c37' },
+      { name: 'Spring Boot',          level: 88, color: '#6db33f' },
+      { name: 'FastAPI / REST APIs',  level: 86, color: '#009688' },
+      { name: 'PostgreSQL & MySQL',   level: 85, color: '#336791' },
+      { name: 'MongoDB',              level: 78, color: '#47a248' },
+      { name: 'Git & Docker',         level: 90, color: '#f05032' },
     ],
   },
 ];
@@ -126,7 +125,7 @@ export default function SkillsSection() {
             </span>
           </h2>
           <p className="text-gray-400 max-w-xl mx-auto">
-            A diverse toolkit refined through a CS degree, Java Full Stack training, and hands-on AI & computer vision projects.
+            A specialized toolkit spanning LLM fine-tuning, computer vision, modern full-stack web architectures, and 3D graphics.
           </p>
         </motion.div>
 

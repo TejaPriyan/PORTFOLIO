@@ -1,70 +1,77 @@
-'use client';
+﻿'use client';
 
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { Code2, Brain, Rocket, Coffee, Server, Palette, GraduationCap, Briefcase, Eye } from 'lucide-react';
+import { Code2, Brain, Rocket, Coffee, Server, Palette, GraduationCap, Briefcase, Eye, Sparkles } from 'lucide-react';
 
 const highlights = [
   {
-    icon: Code2,
-    title: 'Full Stack Developer',
-    desc: 'Building scalable full-stack web applications using Java Spring Boot, REST APIs, and modern frontend frameworks. From backend architecture to responsive UIs.',
-    color: 'blue',
+    icon: Brain,
+    title: 'AI Engineer & LLM Specialist',
+    desc: 'Fine-tuning open-weight LLMs (Tejapriyan-8B) with LoRA/QLoRA for verifiable SQL reasoning, and building scalable multimodal AI platforms with streaming & vision intelligence.',
+    color: 'purple',
   },
   {
     icon: Eye,
     title: 'Computer Vision Specialist',
-    desc: 'Built AI-based systems like helmet detection, number plate recognition, and smart traffic monitoring using Python, OpenCV, TensorFlow, and YOLO.',
-    color: 'purple',
+    desc: 'Engineered deep learning systems including real-time helmet detection (95%+ accuracy), license plate recognition, and smart traffic monitoring using OpenCV, TensorFlow, and YOLO.',
+    color: 'blue',
   },
   {
-    icon: Rocket,
-    title: 'Full-Stack Creator',
-    desc: 'Crafting immersive frontend experiences with React, Next.js, and Tailwind CSS. From hotel booking platforms to 3D portfolio experiences — every pixel is intentional.',
+    icon: Code2,
+    title: 'Full Stack Architect',
+    desc: 'Building scalable full-stack web applications using Java Spring Boot, REST APIs, Next.js, and React. From enterprise backend microservices to responsive modern UIs.',
     color: 'cyan',
   },
   {
     icon: Server,
-    title: 'System Designer',
-    desc: 'Designing microservices, RESTful APIs, and database architectures with Spring Boot, Spring Security, MySQL, PostgreSQL, and MongoDB.',
+    title: 'Systems & API Designer',
+    desc: 'Designing robust microservices, RESTful APIs, and database architectures with Spring Boot, Spring Security, MySQL, PostgreSQL, and MongoDB.',
     color: 'green',
   },
   {
     icon: Palette,
     title: 'Creative Technologist',
-    desc: 'Merging art and code. From 3D web experiences with Three.js and WebGL to glassmorphism gaming platforms — technology should evoke emotion and wonder.',
+    desc: 'Merging 3D web graphics and clean design. From interactive WebGL scenes with Three.js to glassmorphism interfaces — engineering experiences that inspire.',
     color: 'pink',
   },
   {
     icon: Coffee,
     title: 'Lifelong Learner',
-    desc: 'Completed a CS degree and Java Full Stack Developer training program. Quick learner with a passion for AI, machine learning, and emerging technologies. Speaks English, Tamil, and Telugu.',
+    desc: 'Computer Science graduate with deep passion for AI research and modern software engineering. Quick to master emerging paradigms and frameworks.',
     color: 'amber',
   },
 ];
 
 const timeline = [
   {
+    icon: Brain,
+    title: 'AI Engineering & LLM Systems',
+    subtitle: 'Independent AI & LLM Systems · 2024 — Present',
+    desc: 'Fine-tuned Tejapriyan-8B model, created Teja Priyan AI multimodal workspace, and published quantized model weights to Hugging Face with Ollama and NPX integration.',
+    color: 'purple',
+  },
+  {
     icon: GraduationCap,
     title: 'Bachelor of Computer Science',
     subtitle: 'University Graduation · Completed May 2025',
-    desc: 'Strong foundation in algorithms, data structures, software engineering, and computer architecture. GPA: 8.5/10',
+    desc: 'Strong foundation in algorithms, data structures, software engineering, and computer architecture. GPA: 8.5/10.',
     color: 'blue',
   },
   {
-    icon: Brain,
-    title: 'AI & Computer Vision Projects',
-    subtitle: 'Academic & Personal Projects · 2023 – Present',
+    icon: Eye,
+    title: 'Computer Vision & Deep Learning',
+    subtitle: 'Academic & Personal AI Systems · 2023 — 2025',
     desc: 'Built helmet detection, number plate recognition, and traffic monitoring systems using Python, OpenCV, TensorFlow, and YOLO with 95%+ accuracy.',
-    color: 'purple',
+    color: 'cyan',
   },
   {
     icon: Briefcase,
     title: 'Java Full Stack Developer Training',
-    subtitle: 'Professional Training Institute · Sep 2025 – Mar 2026',
+    subtitle: 'Professional Training Institute · Sep 2025 — Mar 2026',
     desc: 'Mastered enterprise Java, Spring Boot, Spring Security, RESTful APIs, microservices, database design, and agile development methodologies.',
-    color: 'cyan',
+    color: 'green',
   },
 ];
 
@@ -127,9 +134,9 @@ export default function AboutSection() {
             </span>
           </h2>
           <p className="text-gray-400 max-w-2xl mx-auto leading-relaxed">
-            I&apos;m Teja Priyan — a Computer Science graduate and Full Stack Developer with 2+ years of
-            hands-on experience building scalable web applications and AI-driven systems. Specialized in
-            Java Spring Boot, computer vision, and modern web technologies. Currently seeking new opportunities.
+            I&apos;m Teja Priyan — an AI Engineer &amp; Full Stack Developer with hands-on experience
+            building cutting-edge Large Language Model systems, multimodal AI workspaces, real-time computer vision applications,
+            and scalable enterprise web platforms.
           </p>
         </motion.div>
 
@@ -150,7 +157,7 @@ export default function AboutSection() {
         >
           <h3 className="text-center text-lg font-semibold text-white mb-8">
             <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-              Education & Journey
+              Education &amp; Journey
             </span>
           </h3>
           <div className="relative max-w-3xl mx-auto">
@@ -180,22 +187,6 @@ export default function AboutSection() {
                 </motion.div>
               );
             })}
-          </div>
-        </motion.div>
-
-        {/* Quote */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ delay: 0.5, duration: 0.8 }}
-          viewport={{ once: true }}
-          className="mt-12 text-center"
-        >
-          <div className="inline-flex items-center gap-4 px-6 py-3 rounded-full glass">
-            <span className="text-sm text-gray-400">
-              &quot;The best code is the one that makes you forget it&apos;s code.&quot;
-            </span>
-            <span className="text-blue-400 font-mono text-xs">— Teja</span>
           </div>
         </motion.div>
       </div>

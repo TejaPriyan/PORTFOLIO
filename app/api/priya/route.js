@@ -1,26 +1,28 @@
-import { NextResponse } from 'next/server';
+﻿import { NextResponse } from 'next/server';
 
 const knowledge = {
   name: 'Teja Priyan',
-  title: 'Java Developer | Tech Enthusiast | AI Developer',
+  title: 'AI Engineer & Full Stack Developer',
   location: 'India',
-  email: 'teja@example.com',
-  github: 'https://github.com/tejapriyan',
+  email: 'teja1616150@gmail.com',
+  github: 'https://github.com/TejaPriyan',
   linkedin: 'https://linkedin.com/in/tejapriyan',
+  huggingface: 'https://huggingface.co/teja161615',
   skills: {
-    languages: ['Java', 'JavaScript', 'Python', 'TypeScript', 'SQL'],
+    ai_llms: ['LLM Fine-Tuning (LoRA/QLoRA)', 'PyTorch', 'Hugging Face', 'GGUF', 'Ollama', 'Multimodal AI'],
+    computer_vision: ['OpenCV', 'YOLO', 'TensorFlow', 'Deep Learning', 'Real-time Video Processing'],
+    languages: ['Python', 'Java', 'JavaScript', 'TypeScript', 'SQL'],
     frontend: ['React', 'Next.js', 'Tailwind CSS', 'Three.js', 'Framer Motion'],
-    backend: ['Spring Boot', 'Node.js', 'Express', 'Docker', 'AWS'],
-    ai: ['TensorFlow', 'OpenAI API', 'Machine Learning', 'NLP'],
-    databases: ['PostgreSQL', 'MongoDB', 'Redis'],
+    backend: ['Spring Boot', 'FastAPI', 'Docker', 'PostgreSQL', 'MySQL', 'MongoDB'],
   },
   projects: [
-    { name: 'Teja Gaming Hub', desc: 'Full-stack gaming platform with real-time multiplayer' },
-    { name: 'AI Image Generator', desc: 'Deep learning-powered creative image generation tool' },
-    { name: '3D Portfolio', desc: 'Immersive Three.js portfolio experience' },
-    { name: 'Microservices Gateway', desc: 'Scalable API gateway handling 10K+ requests/sec' },
+    { name: 'Teja Priyan AI Platform', desc: 'Multimodal AI platform with live code sandbox, streaming, and vision reasoning (https://tejapriyan-ai.vercel.app)' },
+    { name: 'Tejapriyan-8B Model', desc: 'Fine-tuned 8B LLM for verifiable Text-to-SQL reasoning (https://tejapriyan-ai-model.vercel.app | Weights: huggingface.co/teja161615/Tejapriyan-8B-GGUF)' },
+    { name: 'Helmet Detection System', desc: '95%+ accurate real-time safety enforcement system with OpenCV & CNN' },
+    { name: 'Smart Traffic Monitoring', desc: 'IoT + YOLO powered traffic flow and violation detection' },
+    { name: '3D Scroll Portfolio', desc: 'Cinematic Three.js and React Three Fiber portfolio experience' },
   ],
-  about: 'Passionate developer specializing in Java backend systems, full-stack web development, and AI. Believes technology should be both powerful and beautiful.',
+  about: 'AI Engineer and Full Stack Developer specializing in Large Language Models, multimodal systems, computer vision, and high-performance web applications.',
 };
 
 export async function GET() {
@@ -35,7 +37,6 @@ export async function POST(request) {
   try {
     const { query } = await request.json();
 
-    // Simple keyword matching for demo
     const lower = (query || '').toLowerCase();
     let response = '';
 
@@ -44,7 +45,7 @@ export async function POST(request) {
     } else if (lower.includes('project')) {
       response = knowledge.projects.map((p) => `• ${p.name}: ${p.desc}`).join('\n');
     } else if (lower.includes('contact') || lower.includes('email')) {
-      response = `Reach Teja at ${knowledge.email} or connect on LinkedIn: ${knowledge.linkedin}`;
+      response = `Reach Teja at ${knowledge.email}, on LinkedIn: ${knowledge.linkedin}, or GitHub: ${knowledge.github}`;
     } else {
       response = knowledge.about;
     }

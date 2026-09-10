@@ -1,14 +1,14 @@
-'use client';
+﻿'use client';
 
 import { motion, useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
-import { Send, Github, Linkedin, Twitter, Mail, MapPin, CheckCircle, AlertCircle } from 'lucide-react';
+import { Send, Github, Linkedin, Twitter, Mail, MapPin, CheckCircle, AlertCircle, Globe } from 'lucide-react';
 
 const socials = [
-  { icon: Github,   label: 'GitHub',   href: 'https://github.com/TejaPriyan',          color: 'hover:text-white' },
-  { icon: Linkedin, label: 'LinkedIn', href: 'https://www.linkedin.com/in/tejapriyan',  color: 'hover:text-blue-400' },
-  { icon: Twitter,  label: 'Twitter',  href: 'https://twitter.com/tejapriyan',          color: 'hover:text-cyan-400' },
-  { icon: Mail,     label: 'Email',    href: 'mailto:tejapriyan@email.com',              color: 'hover:text-purple-400' },
+  { icon: Github,   label: 'GitHub',       href: 'https://github.com/TejaPriyan',            color: 'hover:text-white' },
+  { icon: Linkedin, label: 'LinkedIn',     href: 'https://www.linkedin.com/in/tejapriyan',    color: 'hover:text-blue-400' },
+  { icon: Globe,    label: 'Hugging Face', href: 'https://huggingface.co/teja161615',         color: 'hover:text-amber-400' },
+  { icon: Mail,     label: 'Email',        href: 'mailto:teja1616150@gmail.com',              color: 'hover:text-purple-400' },
 ];
 
 export default function ContactSection() {
@@ -77,7 +77,7 @@ export default function ContactSection() {
           className="text-center mb-12"
         >
           <p className="text-gray-400 max-w-xl mx-auto mt-4">
-            Have a project in mind? Want to collaborate on something amazing?
+            Have a project in mind? Looking to collaborate on AI or full-stack software?
             I&apos;d love to hear from you.
           </p>
           {/* Decorative line */}
@@ -202,7 +202,9 @@ export default function ContactSection() {
                 </div>
                 <div>
                   <p className="text-xs text-gray-500 font-mono uppercase">Email</p>
-                  <p className="text-sm text-gray-300">tejapriyan@email.com</p>
+                  <a href="mailto:teja1616150@gmail.com" className="text-sm text-gray-300 hover:text-white transition-colors">
+                    teja1616150@gmail.com
+                  </a>
                 </div>
               </div>
 
@@ -229,9 +231,8 @@ export default function ContactSection() {
                     href={s.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center
-                               text-gray-400 ${s.color} transition-all duration-300
-                               hover:bg-white/10 hover:scale-110`}
+                    className={`p-3 rounded-lg bg-white/5 ${s.color} hover:bg-white/10
+                               transition-all duration-200 border border-white/5`}
                     title={s.label}
                   >
                     <s.icon className="w-5 h-5" />
@@ -239,21 +240,6 @@ export default function ContactSection() {
                 ))}
               </div>
             </div>
-
-            {/* Footer note */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
-              viewport={{ once: true }}
-              className="mt-8 text-center md:text-left"
-            >
-              <p className="text-xs text-gray-600">
-                Designed &amp; built by{' '}
-                <span className="text-amber-400">Teja Priyan</span>{' '}
-                with Next.js, Three.js &amp; ☕
-              </p>
-            </motion.div>
           </motion.div>
         </div>
       </div>
