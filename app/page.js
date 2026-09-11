@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import dynamic from 'next/dynamic';
@@ -13,6 +13,8 @@ import PriyaAssistant from '@/components/PriyaAssistant';
 import NavigationBar from '@/components/NavigationBar';
 import SoundManager from '@/components/SoundManager';
 import ParticleField from '@/components/ParticleField';
+import CommandPalette from '@/components/CommandPalette';
+import FloatingQuickActions from '@/components/FloatingQuickActions';
 
 const Scene3D = dynamic(() => import('@/components/Scene3D'), {
   ssr: false,
@@ -23,12 +25,59 @@ const SECTION_IDS = ['hero', 'about', 'projects', 'skills', 'ai-vision', 'contac
 
 export default function HomePage() {
   const [loading, setLoading] = useState(true);
+  const [theme, setTheme] = useState('dark');
+  const [commandOpen, setCommandOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [activeSection, setActiveSection] = useState('hero');
   const [soundEnabled, setSoundEnabled] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const containerRef = useRef(null);
   const sectionsRef = useRef({});
+
+  // Initialize theme from localStorage / system preference
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('tp_portfolio_theme');
+      if (saved === 'light' || saved === 'dark') {
+        setTheme(saved);
+        document.documentElement.classList.toggle('light', saved === 'light');
+        document.documentElement.classList.toggle('dark', saved === 'dark');
+        document.documentElement.setAttribute('data-theme', saved);
+      } else {
+        document.documentElement.classList.add('dark');
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    } catch {
+      // fallback
+    }
+  }, []);
+
+  const toggleTheme = useCallback(() => {
+    setTheme((prev) => {
+      const next = prev === 'dark' ? 'light' : 'dark';
+      try {
+        localStorage.setItem('tp_portfolio_theme', next);
+      } catch {
+        // no-op
+      }
+      document.documentElement.classList.toggle('light', next === 'light');
+      document.documentElement.classList.toggle('dark', next === 'dark');
+      document.documentElement.setAttribute('data-theme', next);
+      return next;
+    });
+  }, []);
+
+  // Global Ctrl+K / Cmd+K shortcut
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.metaKey || e.ctrlKey) && (e.key === 'k' || e.key === 'K')) {
+        e.preventDefault();
+        setCommandOpen((prev) => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   // Mouse & touch parallax tracking
   useEffect(() => {
@@ -104,10 +153,10 @@ export default function HomePage() {
   if (loading) return <LoadingScreen onFinish={() => setLoading(false)} />;
 
   return (
-    <div className="relative w-full h-screen overflow-hidden bg-black">
+    <div className={`relative w-full h-screen overflow-hidden ${theme === 'light' ? 'bg-slate-50' : 'bg-black'}`}>
       {/* 3D Fixed Background World */}
       <div className="fixed inset-0 z-0 pointer-events-none">
-        <Scene3D scrollProgress={scrollProgress} mousePos={mousePos} />
+        <Scene3D scrollProgress={scrollProgress} mousePos={mousePos} theme={theme} />
       </div>
 
       {/* Subtle particle canvas */}
@@ -119,6 +168,9 @@ export default function HomePage() {
         onNavigate={scrollToSection}
         soundEnabled={soundEnabled}
         onToggleSound={() => setSoundEnabled((prev) => !prev)}
+        theme={theme}
+        onToggleTheme={toggleTheme}
+        onOpenCommand={() => setCommandOpen(true)}
       />
 
       {/* Scrollable Content Container */}
@@ -174,6 +226,30 @@ export default function HomePage() {
           <ContactSection />
         </section>
       </div>
+
+      {/* Floating Back to Top & Quick Actions */}
+      <FloatingQuickActions
+        scrollProgress={scrollProgress}
+        onScrollToTop={() => scrollToSection('hero')}
+        onOpenCommand={() => setCommandOpen(true)}
+        theme={theme}
+        onToggleTheme={toggleTheme}
+      />
+
+      {/* Command Palette / Spotlight Search */}
+      <CommandPalette
+        isOpen={commandOpen}
+        onClose={() => setCommandOpen(false)}
+        theme={theme}
+        onToggleTheme={toggleTheme}
+        soundEnabled={soundEnabled}
+        onToggleSound={() => setSoundEnabled((prev) => !prev)}
+        onNavigate={scrollToSection}
+        onOpenPriya={() => {
+          const btn = document.querySelector('[aria-label="Open AI Assistant"]');
+          if (btn) btn.click();
+        }}
+      />
 
       {/* Priya AI Assistant */}
       <PriyaAssistant onNavigate={scrollToSection} />

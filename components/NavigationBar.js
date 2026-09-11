@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { Volume2, VolumeX, Menu, X } from 'lucide-react';
+import { Volume2, VolumeX, Menu, X, Sun, Moon, Search } from 'lucide-react';
 
 const navItems = [
   { id: 'hero', label: 'Home' },
@@ -13,7 +13,15 @@ const navItems = [
   { id: 'contact', label: 'Contact' },
 ];
 
-export default function NavigationBar({ activeSection, onNavigate, soundEnabled, onToggleSound }) {
+export default function NavigationBar({
+  activeSection,
+  onNavigate,
+  soundEnabled,
+  onToggleSound,
+  theme = 'dark',
+  onToggleTheme,
+  onOpenCommand,
+}) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
@@ -26,7 +34,7 @@ export default function NavigationBar({ activeSection, onNavigate, soundEnabled,
         className="fixed top-0 left-0 right-0 z-40 px-4 py-3"
       >
         <div className="max-w-6xl mx-auto flex items-center justify-between">
-          {/* Logo */}
+          {/* Logo & Brand */}
           <button
             onClick={() => onNavigate('hero')}
             className="flex items-center gap-2 group"
@@ -63,20 +71,43 @@ export default function NavigationBar({ activeSection, onNavigate, soundEnabled,
 
           {/* Right controls */}
           <div className="flex items-center gap-2">
+            {/* Spotlight / Command Search */}
+            <button
+              onClick={onOpenCommand}
+              className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg glass text-xs text-gray-400 hover:text-white transition-all hover:border-cyan-500/30"
+              title="Open Spotlight Search (Ctrl+K)"
+            >
+              <Search className="w-3.5 h-3.5 text-cyan-400" />
+              <span className="text-[10px] font-mono px-1 py-0.5 rounded bg-white/10 text-gray-400">⌘K</span>
+            </button>
+
+            {/* Light / Dark Mode Toggle */}
+            <button
+              onClick={onToggleTheme}
+              className="w-8 h-8 rounded-lg glass flex items-center justify-center text-gray-400 hover:text-white transition-all duration-300 hover:scale-105"
+              title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+              aria-label="Toggle theme"
+            >
+              {theme === 'dark' ? (
+                <Sun className="w-4 h-4 text-amber-300 animate-fade-in" />
+              ) : (
+                <Moon className="w-4 h-4 text-indigo-500 animate-fade-in" />
+              )}
+            </button>
+
+            {/* Audio Toggle */}
             <button
               onClick={onToggleSound}
-              className="w-8 h-8 rounded-lg glass flex items-center justify-center
-                        text-gray-400 hover:text-white transition-colors"
-              title={soundEnabled ? 'Mute sounds' : 'Enable sounds'}
+              className="w-8 h-8 rounded-lg glass flex items-center justify-center text-gray-400 hover:text-white transition-colors"
+              title={soundEnabled ? 'Mute audio' : 'Enable audio'}
             >
-              {soundEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
+              {soundEnabled ? <Volume2 className="w-4 h-4 text-cyan-400" /> : <VolumeX className="w-4 h-4" />}
             </button>
 
             {/* Mobile menu button */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="md:hidden w-8 h-8 rounded-lg glass flex items-center justify-center
-                        text-gray-400 hover:text-white transition-colors"
+              className="md:hidden w-8 h-8 rounded-lg glass flex items-center justify-center text-gray-400 hover:text-white transition-colors"
             >
               {mobileOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
             </button>
@@ -105,6 +136,51 @@ export default function NavigationBar({ activeSection, onNavigate, soundEnabled,
               {item.label}
             </button>
           ))}
+        </div>
+
+        {/* Mobile Quick Controls row */}
+        <div className="mt-3 pt-3 border-t border-white/10 flex items-center justify-between gap-2">
+          <button
+            onClick={() => { onOpenCommand?.(); setMobileOpen(false); }}
+            className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg bg-white/5 text-xs text-gray-300 hover:text-white"
+          >
+            <Search className="w-3.5 h-3.5 text-cyan-400" />
+            <span>Search</span>
+          </button>
+
+          <button
+            onClick={onToggleTheme}
+            className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg bg-white/5 text-xs text-gray-300 hover:text-white"
+          >
+            {theme === 'dark' ? (
+              <>
+                <Sun className="w-3.5 h-3.5 text-amber-300" />
+                <span>Light</span>
+              </>
+            ) : (
+              <>
+                <Moon className="w-3.5 h-3.5 text-indigo-400" />
+                <span>Dark</span>
+              </>
+            )}
+          </button>
+
+          <button
+            onClick={onToggleSound}
+            className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg bg-white/5 text-xs text-gray-300 hover:text-white"
+          >
+            {soundEnabled ? (
+              <>
+                <Volume2 className="w-3.5 h-3.5 text-cyan-400" />
+                <span>Audio On</span>
+              </>
+            ) : (
+              <>
+                <VolumeX className="w-3.5 h-3.5" />
+                <span>Muted</span>
+              </>
+            )}
+          </button>
         </div>
       </motion.div>
     </>

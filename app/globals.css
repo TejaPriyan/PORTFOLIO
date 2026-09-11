@@ -22,11 +22,16 @@ html {
   scrollbar-color: #1e3a5f #000;
 }
 
+html.light {
+  scrollbar-color: #94a3b8 #f1f5f9;
+}
+
 body {
   font-family: 'Space Grotesk', sans-serif;
   background: #000;
   color: #e2e8f0;
   overflow-x: hidden;
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 ::-webkit-scrollbar {
@@ -40,10 +45,103 @@ body {
   border-radius: 3px;
 }
 
+/* ─── Light Mode Overrides ─── */
+html.light,
+[data-theme="light"] body {
+  background: #f8fafc;
+  color: #0f172a;
+}
+
+html.light ::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+html.light ::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #cbd5e1, #3b82f6, #8b5cf6);
+}
+
+html.light .glass {
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.05), 0 4px 6px -2px rgba(15, 23, 42, 0.03);
+}
+
+html.light .glass-dark {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border: 1px solid rgba(15, 23, 42, 0.1);
+  box-shadow: 0 16px 36px -6px rgba(15, 23, 42, 0.08);
+}
+
+html.light .text-white {
+  color: #0f172a;
+}
+
+html.light .text-gray-100 {
+  color: #0f172a;
+}
+
+html.light .text-gray-200 {
+  color: #1e293b;
+}
+
+html.light .text-gray-300 {
+  color: #334155;
+}
+
+html.light .text-gray-400 {
+  color: #64748b;
+}
+
+html.light .text-gray-500 {
+  color: #64748b;
+}
+
+html.light .bg-black {
+  background-color: #f8fafc;
+}
+
+html.light .bg-black\/60,
+html.light .bg-black\/70,
+html.light .bg-black\/80,
+html.light .bg-black\/90,
+html.light .bg-black\/95 {
+  background-color: rgba(255, 255, 255, 0.88);
+}
+
+html.light .bg-white\/5 {
+  background-color: rgba(15, 23, 42, 0.04);
+}
+
+html.light .bg-white\/10 {
+  background-color: rgba(15, 23, 42, 0.07);
+}
+
+html.light .bg-white\/20 {
+  background-color: rgba(15, 23, 42, 0.12);
+}
+
+html.light .border-white\/10 {
+  border-color: rgba(15, 23, 42, 0.08);
+}
+
+html.light .border-white\/20 {
+  border-color: rgba(15, 23, 42, 0.14);
+}
+
+html.light .border-white\/30 {
+  border-color: rgba(15, 23, 42, 0.22);
+}
+
 /* ─── Cinematic Scroll Container ─── */
 .cinematic-scroll {
   scrollbar-width: thin;
   scrollbar-color: #1e3a5f transparent;
+}
+html.light .cinematic-scroll {
+  scrollbar-color: #94a3b8 transparent;
 }
 
 /* ─── Text glow utilities ─── */
@@ -120,11 +218,6 @@ body {
   100% { border-color: rgba(244,114,182,0.3); box-shadow: 0 0 8px rgba(244,114,182,0.2); }
 }
 
-@keyframes cinematic-fade-in {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
 .animate-float {
   animation: float 3s ease-in-out infinite;
 }
@@ -170,43 +263,6 @@ body {
 }
 .perspective-card:hover {
   transform: perspective(800px) rotateX(3deg) rotateY(-3deg) scale(1.015);
-}
-
-/* ─── Cinematic vignette overlay per section ─── */
-.section-vignette-indigo::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at center, transparent 40%, rgba(15,10,40,0.6) 100%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-.section-vignette-purple::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at center, transparent 40%, rgba(30,5,40,0.6) 100%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-.section-vignette-teal::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at center, transparent 40%, rgba(5,25,30,0.6) 100%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-.section-vignette-warm::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at center, transparent 40%, rgba(20,12,5,0.55) 100%);
-  pointer-events: none;
-  z-index: 0;
 }
 
 /* ─── Cinematic chapter label ─── */
