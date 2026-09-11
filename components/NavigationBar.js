@@ -31,9 +31,9 @@ export default function NavigationBar({ activeSection, onNavigate, soundEnabled,
             onClick={() => onNavigate('hero')}
             className="flex items-center gap-2 group"
           >
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-purple-500
-                           flex items-center justify-center group-hover:scale-110 transition-transform">
-              <span className="text-xs font-bold text-white">TP</span>
+            <div className="w-8 h-8 rounded-full border border-white/20 bg-black/70 shadow-md shadow-cyan-500/20 overflow-hidden flex items-center justify-center group-hover:scale-110 transition-transform">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/favicon-32x32.png" alt="Teja Priyan Logo" className="w-full h-full object-cover" />
             </div>
             <span className="text-sm font-semibold text-white hidden sm:block">
               Teja Priyan
