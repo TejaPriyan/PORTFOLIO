@@ -1,34 +1,24 @@
-'use client';
+﻿'use client';
 
-import { useRef, useMemo } from 'react';
+import { useRef, useMemo, useEffect, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { Stars, Sphere } from '@react-three/drei';
+import { Stars, Float } from '@react-three/drei';
 import * as THREE from 'three';
 
 /* ─── Constants ─── */
-const SECTION_DEPTH = 15; // z-units per section
+const SECTION_DEPTH = 15;
 const TOTAL_SECTIONS = 6;
 const MAX_Z = -(SECTION_DEPTH * (TOTAL_SECTIONS - 1)); // -75
 
-const SECTION_COLORS = [
-  new THREE.Color('#050520'), // Hero - deep space navy
-  new THREE.Color('#0a0525'), // About - indigo night
-  new THREE.Color('#060318'), // Projects - deep violet
-  new THREE.Color('#031520'), // Skills - deep teal
-  new THREE.Color('#120510'), // AI Vision - deep magenta
-  new THREE.Color('#0a0810'), // Contact - warm dark
-];
-
 const SECTION_FOG_COLORS = [
-  new THREE.Color('#0a0a30'),
-  new THREE.Color('#120a30'),
-  new THREE.Color('#0d0620'),
-  new THREE.Color('#062030'),
-  new THREE.Color('#200a20'),
-  new THREE.Color('#18120a'),
+  new THREE.Color('#080b24'), // Hero: Deep Cosmic Blue
+  new THREE.Color('#10082e'), // About: Indigo Nebula
+  new THREE.Color('#07142b'), // Projects: Electric Cyan-Violet
+  new THREE.Color('#051d24'), // Skills: Cyber Teal
+  new THREE.Color('#220726'), // AI Vision: Neon Magenta
+  new THREE.Color('#1a1008'), // Contact: Warm Solar Gold
 ];
 
-/* ─── Helpers ─── */
 function lerpColor(a, b, t) {
   return new THREE.Color(
     a.r + (b.r - a.r) * t,
@@ -37,468 +27,328 @@ function lerpColor(a, b, t) {
   );
 }
 
-/* ─── Chapter 1: Hero — Deep Space ─── */
+/* ─── 1. Hero Scene: Floating Quantum AI Core ─── */
 function HeroScene({ z }) {
-  const groupRef = useRef();
+  const coreRef = useRef();
+  const ring1Ref = useRef();
+  const ring2Ref = useRef();
+  const ring3Ref = useRef();
 
-  // Slowly pulsing nebula rings
-  const rings = useMemo(() => [
-    { radius: 4, speed: 0.05, color: '#1a3a7a', opacity: 0.12, tilt: 0.3 },
-    { radius: 6, speed: -0.03, color: '#2a1a5a', opacity: 0.08, tilt: 0.5 },
-    { radius: 8, speed: 0.02, color: '#0a2a4a', opacity: 0.06, tilt: 0.1 },
-  ], []);
+  useFrame((state, delta) => {
+    const t = state.clock.elapsedTime;
+    if (coreRef.current) {
+      coreRef.current.rotation.x = t * 0.25;
+      coreRef.current.rotation.y = t * 0.35;
+    }
+    if (ring1Ref.current) ring1Ref.current.rotation.z = t * 0.4;
+    if (ring2Ref.current) ring2Ref.current.rotation.x = t * -0.3;
+    if (ring3Ref.current) ring3Ref.current.rotation.y = t * 0.25;
+  });
 
-  // Floating light motes
+  // Floating ambient light motes
   const motes = useMemo(() => {
-    return Array.from({ length: 40 }, (_, i) => ({
+    return Array.from({ length: 45 }, (_, i) => ({
       pos: [
-        (Math.random() - 0.5) * 16,
-        (Math.random() - 0.5) * 8,
-        z + (Math.random() - 0.5) * 12,
+        (Math.random() - 0.5) * 18,
+        (Math.random() - 0.5) * 10,
+        z + (Math.random() - 0.5) * 14,
       ],
-      size: 0.02 + Math.random() * 0.04,
-      speed: 0.3 + Math.random() * 0.5,
-      phase: Math.random() * Math.PI * 2,
-      color: Math.random() > 0.5 ? '#4a9eff' : '#a78bfa',
+      size: 0.03 + Math.random() * 0.04,
+      color: i % 2 === 0 ? '#22d3ee' : '#a855f7',
     }));
   }, [z]);
 
-  useFrame((state) => {
-    rings.forEach((r, i) => {
-      const mesh = groupRef.current?.children[i];
-      if (mesh) mesh.rotation.z = state.clock.elapsedTime * r.speed;
-    });
-  });
-
   return (
-    <group ref={groupRef} position={[0, 0, z]}>
-      {rings.map((r, i) => (
-        <mesh key={i} rotation={[r.tilt, 0, 0]}>
-          <torusGeometry args={[r.radius, 0.006, 12, 80]} />
-          <meshBasicMaterial color={r.color} transparent opacity={r.opacity} />
-        </mesh>
-      ))}
-      {motes.map((m, i) => (
-        <Sphere key={i} args={[m.size, 4, 4]} position={m.pos}>
-          <meshBasicMaterial color={m.color} transparent opacity={0.7} />
-        </Sphere>
-      ))}
-      {/* Central glow point */}
-      <pointLight position={[0, 0, 0]} color="#3060ff" intensity={2} distance={15} />
-    </group>
-  );
-}
-
-/* ─── Chapter 2: About — The Study ─── */
-function AboutScene({ z }) {
-  const screens = useMemo(() => [
-    { pos: [-3.5, 0.5, z - 2], rot: [0, 0.3, 0], w: 2, h: 1.4, color: '#1a4a8a' },
-    { pos: [0, 1.2, z - 5], rot: [0, 0, 0], w: 2.4, h: 1.6, color: '#2a1a6a' },
-    { pos: [3.5, 0.2, z - 3], rot: [0, -0.3, 0], w: 1.8, h: 1.2, color: '#0a3a5a' },
-    { pos: [-1.5, -1, z - 7], rot: [0.1, 0.15, 0], w: 1.4, h: 0.9, color: '#1a3a4a' },
-  ], [z]);
-
-  // Floating code lines
-  const codeLines = useMemo(() => (
-    Array.from({ length: 20 }, (_, i) => ({
-      pos: [
-        (Math.random() - 0.5) * 12,
-        (Math.random() - 0.5) * 6,
-        z + (Math.random() - 0.5) * 10,
-      ],
-      width: 0.5 + Math.random() * 1.2,
-      color: Math.random() > 0.6 ? '#60a5fa' : Math.random() > 0.5 ? '#a78bfa' : '#34d399',
-      opacity: 0.15 + Math.random() * 0.25,
-    }))
-  ), [z]);
-
-  return (
-    <group>
-      {/* Monitor screens */}
-      {screens.map((s, i) => (
-        <group key={i} position={s.pos} rotation={s.rot}>
-          {/* Screen bezel */}
-          <mesh>
-            <boxGeometry args={[s.w + 0.1, s.h + 0.1, 0.05]} />
-            <meshStandardMaterial color="#111" roughness={0.5} />
-          </mesh>
-          {/* Screen glow */}
-          <mesh position={[0, 0, 0.03]}>
-            <planeGeometry args={[s.w, s.h]} />
-            <meshBasicMaterial color={s.color} transparent opacity={0.6} />
-          </mesh>
-          {/* Scan lines */}
-          <mesh position={[0, 0, 0.04]}>
-            <planeGeometry args={[s.w, s.h]} />
-            <meshBasicMaterial color="#000" transparent opacity={0.08} />
-          </mesh>
-          <pointLight position={[0, 0, 0.5]} color={s.color} intensity={0.8} distance={3} />
-        </group>
-      ))}
-      {/* Floating code lines */}
-      {codeLines.map((c, i) => (
-        <mesh key={i} position={c.pos} rotation={[0, 0, (Math.random() - 0.5) * 0.1]}>
-          <planeGeometry args={[c.width, 0.03]} />
-          <meshBasicMaterial color={c.color} transparent opacity={c.opacity} />
-        </mesh>
-      ))}
-      {/* Warm desk lamp glow */}
-      <pointLight position={[0, 3, z - 2]} color="#ffd080" intensity={0.4} distance={10} />
-      <pointLight position={[0, -2, z - 5]} color="#2040a0" intensity={0.6} distance={8} />
-    </group>
-  );
-}
-
-/* ─── Chapter 3: Projects — The Workshop ─── */
-function ProjectsScene({ z }) {
-  const panelsRef = useRef([]);
-
-  const panels = useMemo(() => [
-    { pos: [-4, 1.5, z - 2], color: '#1a4a9a', accent: '#60a5fa', label: 'Gaming Hub' },
-    { pos: [3.8, 0.5, z - 4], color: '#3a1a6a', accent: '#c084fc', label: 'AI Generator' },
-    { pos: [-2.5, -1.5, z - 7], color: '#0a3a5a', accent: '#22d3ee', label: '3D Portfolio' },
-    { pos: [2, 2.5, z - 8], color: '#1a4a2a', accent: '#4ade80', label: 'Microservices' },
-  ], [z]);
-
-  useFrame((state) => {
-    panelsRef.current.forEach((p, i) => {
-      if (p) {
-        p.position.y = panels[i].pos[1] + Math.sin(state.clock.elapsedTime * 0.5 + i * 1.5) * 0.15;
-        p.rotation.y = Math.sin(state.clock.elapsedTime * 0.2 + i) * 0.08;
-      }
-    });
-  });
-
-  return (
-    <group>
-      {panels.map((panel, i) => (
-        <group
-          key={i}
-          ref={(el) => (panelsRef.current[i] = el)}
-          position={panel.pos}
-        >
-          {/* Panel back */}
-          <mesh>
-            <boxGeometry args={[2.2, 1.4, 0.04]} />
+    <group position={[0, 0, z]}>
+      {/* Central Quantum Hologram Core */}
+      <Float speed={2} rotationIntensity={0.5} floatIntensity={1}>
+        <group position={[0, 0, -2]}>
+          {/* Wireframe outer icosahedron */}
+          <mesh ref={coreRef}>
+            <icosahedronGeometry args={[1.8, 1]} />
             <meshStandardMaterial
-              color={panel.color}
-              roughness={0.3}
-              metalness={0.6}
-              emissive={panel.color}
-              emissiveIntensity={0.3}
+              color="#22d3ee"
+              wireframe
+              emissive="#0891b2"
+              emissiveIntensity={0.8}
+              transparent
+              opacity={0.65}
             />
           </mesh>
-          {/* Glowing border */}
-          <mesh position={[0, 0, 0.021]}>
-            <planeGeometry args={[2.28, 1.48]} />
-            <meshBasicMaterial color={panel.accent} transparent opacity={0.08} />
+
+          {/* Inner pulsating energy sphere */}
+          <mesh>
+            <sphereGeometry args={[0.9, 24, 24]} />
+            <meshBasicMaterial color="#c084fc" wireframe transparent opacity={0.4} />
           </mesh>
-          {/* Corner accent */}
-          <mesh position={[-1.05, 0.65, 0.03]}>
-            <boxGeometry args={[0.1, 0.1, 0.01]} />
-            <meshBasicMaterial color={panel.accent} transparent opacity={0.9} />
-          </mesh>
-          <mesh position={[1.05, -0.65, 0.03]}>
-            <boxGeometry args={[0.1, 0.1, 0.01]} />
-            <meshBasicMaterial color={panel.accent} transparent opacity={0.9} />
-          </mesh>
-          {/* Panel glow */}
-          <pointLight position={[0, 0, 0.5]} color={panel.accent} intensity={0.5} distance={2.5} />
+
+          {/* Inner core glow point */}
+          <pointLight color="#22d3ee" intensity={3} distance={8} />
+          <pointLight color="#a855f7" intensity={2} distance={6} />
         </group>
+      </Float>
+
+      {/* Orbiting Quantum Rings */}
+      <group position={[0, 0, -2]}>
+        <mesh ref={ring1Ref} rotation={[0.6, 0.2, 0]}>
+          <torusGeometry args={[3.2, 0.008, 12, 100]} />
+          <meshBasicMaterial color="#06b6d4" transparent opacity={0.5} />
+        </mesh>
+        <mesh ref={ring2Ref} rotation={[-0.5, 0.5, 0]}>
+          <torusGeometry args={[4.2, 0.008, 12, 100]} />
+          <meshBasicMaterial color="#a855f7" transparent opacity={0.4} />
+        </mesh>
+        <mesh ref={ring3Ref} rotation={[0.2, -0.7, 0]}>
+          <torusGeometry args={[5.2, 0.008, 12, 100]} />
+          <meshBasicMaterial color="#ec4899" transparent opacity={0.3} />
+        </mesh>
+      </group>
+
+      {/* Ambient glowing motes */}
+      {motes.map((m, i) => (
+        <mesh key={i} position={m.pos}>
+          <sphereGeometry args={[m.size, 6, 6]} />
+          <meshBasicMaterial color={m.color} transparent opacity={0.75} />
+        </mesh>
       ))}
-      {/* Ambient workshop light */}
-      <pointLight position={[0, 4, z - 5]} color="#4060ff" intensity={0.5} distance={15} />
     </group>
   );
 }
 
-/* ─── Chapter 4: Skills — The Constellation ─── */
-function SkillsScene({ z }) {
-  const nodesRef = useRef([]);
-  const lineRef = useRef();
+/* ─── 2. About Scene: Floating Holographic Portals ─── */
+function AboutScene({ z }) {
+  const groupRef = useRef();
 
-  const nodes = useMemo(() => {
-    const items = [
-      { color: '#f89820', size: 0.18 }, // Java
-      { color: '#f7df1e', size: 0.16 }, // JS
-      { color: '#3776ab', size: 0.14 }, // Python
-      { color: '#61dafb', size: 0.16 }, // React
-      { color: '#06b6d4', size: 0.15 }, // Tailwind
-      { color: '#6db33f', size: 0.17 }, // Spring
-      { color: '#339933', size: 0.14 }, // Node
-      { color: '#ff6f00', size: 0.13 }, // TF
-      { color: '#412991', size: 0.14 }, // OpenAI
-      { color: '#2496ed', size: 0.13 }, // Docker
-      { color: '#ff9900', size: 0.12 }, // AWS
-      { color: '#dc382d', size: 0.12 }, // Redis
-    ];
-    return items.map((item, i) => {
-      const angle = (i / items.length) * Math.PI * 2;
-      const radius = 2.5 + (i % 3) * 0.8;
-      return {
-        ...item,
-        baseAngle: angle,
-        radius,
-        y: (Math.random() - 0.5) * 2,
-        speed: 0.12 + (i % 4) * 0.05,
-      };
-    });
-  }, []);
-
-  // Connection lines geometry
-  const lineGeometry = useMemo(() => {
-    const points = [];
-    const count = nodes.length;
-    for (let i = 0; i < count; i++) {
-      for (let j = i + 1; j < count; j++) {
-        if (Math.random() > 0.55) {
-          const a = nodes[i];
-          const b = nodes[j];
-          const ax = Math.cos(a.baseAngle) * a.radius;
-          const az = z - 5 + Math.sin(a.baseAngle) * a.radius * 0.3;
-          const bx = Math.cos(b.baseAngle) * b.radius;
-          const bz = z - 5 + Math.sin(b.baseAngle) * b.radius * 0.3;
-          points.push(new THREE.Vector3(ax, a.y, az));
-          points.push(new THREE.Vector3(bx, b.y, bz));
-        }
-      }
+  useFrame((state) => {
+    if (groupRef.current) {
+      groupRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.15) * 0.1;
     }
-    const geo = new THREE.BufferGeometry().setFromPoints(points);
-    return geo;
-  }, [nodes, z]);
+  });
+
+  const cards = useMemo(() => [
+    { pos: [-4, 1.2, z - 3], rot: [0, 0.4, 0], color: '#38bdf8' },
+    { pos: [4, 0.8, z - 4], rot: [0, -0.4, 0], color: '#c084fc' },
+    { pos: [-2.5, -1.8, z - 6], rot: [0.15, 0.2, 0], color: '#2dd4bf' },
+    { pos: [2.8, -1.6, z - 5], rot: [-0.1, -0.25, 0], color: '#f472b6' },
+  ], [z]);
+
+  return (
+    <group ref={groupRef}>
+      {cards.map((c, i) => (
+        <Float key={i} speed={1.5 + i * 0.3} rotationIntensity={0.2} floatIntensity={0.8}>
+          <mesh position={c.pos} rotation={c.rot}>
+            <boxGeometry args={[2.2, 1.4, 0.05]} />
+            <meshStandardMaterial
+              color={c.color}
+              wireframe
+              transparent
+              opacity={0.35}
+              emissive={c.color}
+              emissiveIntensity={0.4}
+            />
+          </mesh>
+        </Float>
+      ))}
+      <pointLight position={[0, 1, z - 4]} color="#818cf8" intensity={1.5} distance={12} />
+    </group>
+  );
+}
+
+/* ─── 3. Projects Scene: Floating Crystal Data Prisms ─── */
+function ProjectsScene({ z }) {
+  const prismsRef = useRef([]);
+
+  const prisms = useMemo(() => [
+    { pos: [-5, 2, z - 2], size: 0.9, color: '#06b6d4', speed: 0.4 },
+    { pos: [5, 1.5, z - 3], size: 1.1, color: '#a855f7', speed: -0.3 },
+    { pos: [-4.5, -2, z - 4], size: 0.8, color: '#3b82f6', speed: 0.5 },
+    { pos: [4.8, -1.8, z - 5], size: 1.0, color: '#ec4899', speed: -0.4 },
+    { pos: [0, 3.2, z - 6], size: 1.2, color: '#10b981', speed: 0.3 },
+  ], [z]);
 
   useFrame((state) => {
     const t = state.clock.elapsedTime;
-    nodes.forEach((node, i) => {
-      const mesh = nodesRef.current[i];
+    prismsRef.current.forEach((mesh, i) => {
       if (mesh) {
-        const angle = node.baseAngle + t * node.speed;
-        mesh.position.x = Math.cos(angle) * node.radius;
-        mesh.position.y = node.y + Math.sin(t * 0.5 + i) * 0.15;
-        mesh.position.z = z - 5 + Math.sin(angle) * node.radius * 0.3;
-        mesh.rotation.y = t * 0.5;
-        mesh.rotation.x = t * 0.3;
+        mesh.rotation.x = t * prisms[i].speed;
+        mesh.rotation.y = t * (prisms[i].speed * 1.3);
       }
     });
   });
 
   return (
     <group>
-      {/* Connection lines */}
-      <lineSegments ref={lineRef} geometry={lineGeometry}>
-        <lineBasicMaterial color="#1a3a5a" transparent opacity={0.3} />
-      </lineSegments>
-      {/* Skill nodes */}
-      {nodes.map((node, i) => (
-        <mesh
-          key={i}
-          ref={(el) => (nodesRef.current[i] = el)}
-        >
-          <icosahedronGeometry args={[node.size, 1]} />
-          <meshStandardMaterial
-            color={node.color}
-            emissive={node.color}
-            emissiveIntensity={0.8}
-            roughness={0.2}
-            metalness={0.5}
-          />
-        </mesh>
+      {prisms.map((p, i) => (
+        <Float key={i} speed={2} rotationIntensity={0.4} floatIntensity={1}>
+          <mesh
+            ref={(el) => (prismsRef.current[i] = el)}
+            position={p.pos}
+          >
+            <octahedronGeometry args={[p.size, 0]} />
+            <meshStandardMaterial
+              color={p.color}
+              wireframe
+              emissive={p.color}
+              emissiveIntensity={0.6}
+              transparent
+              opacity={0.5}
+            />
+          </mesh>
+        </Float>
       ))}
-      {/* Constellation center glow */}
-      <pointLight position={[0, 0, z - 5]} color="#60c0ff" intensity={1.5} distance={12} />
-      <Sphere args={[0.3, 16, 16]} position={[0, 0, z - 5]}>
-        <meshBasicMaterial color="#60c0ff" transparent opacity={0.6} />
-      </Sphere>
+      <pointLight position={[0, 0, z - 4]} color="#a855f7" intensity={2} distance={14} />
     </group>
   );
 }
 
-/* ─── Chapter 5: AI Vision — The Future ─── */
+/* ─── 4. Skills Scene: Cyberpunk Grid Plane & Neon Rings ─── */
+function SkillsScene({ z }) {
+  const ringRef = useRef();
+
+  useFrame((state) => {
+    if (ringRef.current) {
+      ringRef.current.rotation.z = state.clock.elapsedTime * 0.15;
+    }
+  });
+
+  return (
+    <group>
+      {/* Horizon Grid Floor */}
+      <mesh position={[0, -4, z - 5]} rotation={[-Math.PI / 2, 0, 0]}>
+        <planeGeometry args={[40, 40, 24, 24]} />
+        <meshBasicMaterial color="#0891b2" wireframe transparent opacity={0.12} />
+      </mesh>
+
+      {/* Floating Center Data Ring */}
+      <mesh ref={ringRef} position={[0, 0, z - 6]}>
+        <torusGeometry args={[4.5, 0.02, 16, 80]} />
+        <meshBasicMaterial color="#06b6d4" transparent opacity={0.4} />
+      </mesh>
+      <pointLight position={[0, 0, z - 5]} color="#06b6d4" intensity={2} distance={12} />
+    </group>
+  );
+}
+
+/* ─── 5. AI Vision Scene: Neural Synapse Network & Data Streams ─── */
 function AIVisionScene({ z }) {
-  const ringsRef = useRef([]);
-  const gridRef = useRef();
-
-  const rings = useMemo(() => [
-    { radius: 2, tube: 0.008, speed: 0.4, color: '#ff40ff', tiltX: 0.2, tiltY: 0 },
-    { radius: 3.2, tube: 0.005, speed: -0.25, color: '#40ffff', tiltX: 1.2, tiltY: 0.3 },
-    { radius: 4.5, tube: 0.004, speed: 0.15, color: '#8040ff', tiltX: 0.5, tiltY: 1.1 },
-    { radius: 5.5, tube: 0.003, speed: -0.1, color: '#ff40aa', tiltX: 0.8, tiltY: 0.6 },
-  ], []);
-
-  // Holographic grid
-  const gridGeometry = useMemo(() => {
-    const points = [];
-    const size = 10, step = 1;
-    for (let x = -size; x <= size; x += step) {
-      points.push(new THREE.Vector3(x, 0, z - 8 - size));
-      points.push(new THREE.Vector3(x, 0, z - 8 + size));
-    }
-    for (let zz = -size; zz <= size; zz += step) {
-      points.push(new THREE.Vector3(-size, 0, z - 8 + zz));
-      points.push(new THREE.Vector3(size, 0, z - 8 + zz));
-    }
-    return new THREE.BufferGeometry().setFromPoints(points);
+  const nodes = useMemo(() => {
+    return Array.from({ length: 28 }, (_, i) => ({
+      pos: [
+        (Math.random() - 0.5) * 14,
+        (Math.random() - 0.5) * 8,
+        z - 4 + (Math.random() - 0.5) * 6,
+      ],
+      color: i % 3 === 0 ? '#ff007f' : i % 3 === 1 ? '#00f0ff' : '#a855f7',
+      size: 0.05 + Math.random() * 0.05,
+    }));
   }, [z]);
 
-  useFrame((state) => {
-    const t = state.clock.elapsedTime;
-    ringsRef.current.forEach((ring, i) => {
-      if (ring) {
-        ring.rotation.z = t * rings[i].speed;
-        ring.rotation.x = rings[i].tiltX + Math.sin(t * 0.2) * 0.05;
-      }
-    });
-    if (gridRef.current) {
-      gridRef.current.material.opacity = 0.06 + Math.sin(t * 0.5) * 0.02;
-    }
-  });
+  const streams = useMemo(() => {
+    return Array.from({ length: 20 }, (_, i) => ({
+      x: ((i % 10) - 4.5) * 1.4,
+      zPos: z - 3 + (i % 3) * 0.8,
+      speed: 0.5 + (i % 4) * 0.3,
+      color: i % 2 === 0 ? '#ff007f' : '#00f0ff',
+    }));
+  }, [z]);
 
   return (
     <group>
-      {/* Holographic grid */}
-      <lineSegments ref={gridRef} geometry={gridGeometry} position={[0, -3, 0]}>
-        <lineBasicMaterial color="#ff40ff" transparent opacity={0.07} />
-      </lineSegments>
-      {/* Neon rings */}
-      {rings.map((r, i) => (
-        <mesh
-          key={i}
-          ref={(el) => (ringsRef.current[i] = el)}
-          position={[0, 0, z - 5]}
-          rotation={[r.tiltX, r.tiltY, 0]}
-        >
-          <torusGeometry args={[r.radius, r.tube, 12, 100]} />
-          <meshBasicMaterial color={r.color} transparent opacity={0.85} />
-        </mesh>
+      {/* Synapse Nodes */}
+      {nodes.map((n, i) => (
+        <Float key={i} speed={2.5} rotationIntensity={0.6} floatIntensity={1}>
+          <mesh position={n.pos}>
+            <sphereGeometry args={[n.size, 8, 8]} />
+            <meshBasicMaterial color={n.color} transparent opacity={0.85} />
+          </mesh>
+        </Float>
       ))}
-      {/* Data stream particles */}
-      {Array.from({ length: 30 }, (_, i) => (
-        <DataParticle key={i} z={z} index={i} />
+
+      {/* Vertical neural data streams */}
+      {streams.map((s, i) => (
+        <StreamParticle key={i} x={s.x} z={s.zPos} speed={s.speed} color={s.color} />
       ))}
-      {/* Futuristic light */}
-      <pointLight position={[0, 0, z - 5]} color="#c040ff" intensity={2} distance={15} />
-      <pointLight position={[3, 2, z - 3]} color="#40ffff" intensity={0.8} distance={8} />
+
+      <pointLight position={[0, 0, z - 4]} color="#ec4899" intensity={2.5} distance={14} />
     </group>
   );
 }
 
-function DataParticle({ z, index }) {
+function StreamParticle({ x, z, speed, color }) {
   const ref = useRef();
-  const speed = 0.4 + (index % 5) * 0.2;
-  const lane = (index % 7) - 3;
-  const phase = (index / 30) * Math.PI * 2;
-
   useFrame((state) => {
     if (ref.current) {
-      const t = (state.clock.elapsedTime * speed + phase) % 1;
+      const t = (state.clock.elapsedTime * speed) % 1;
       ref.current.position.y = -4 + t * 8;
-      ref.current.position.z = z - 3 + lane * 0.5;
-      ref.current.material.opacity = Math.sin(t * Math.PI) * 0.9;
+      ref.current.material.opacity = Math.sin(t * Math.PI) * 0.8;
     }
   });
 
   return (
-    <mesh ref={ref} position={[lane * 0.8, 0, z - 3]}>
-      <sphereGeometry args={[0.015, 4, 4]} />
-      <meshBasicMaterial color={index % 2 === 0 ? '#ff40ff' : '#40ffff'} transparent opacity={0.8} />
+    <mesh ref={ref} position={[x, 0, z]}>
+      <sphereGeometry args={[0.02, 4, 4]} />
+      <meshBasicMaterial color={color} transparent opacity={0.8} />
     </mesh>
   );
 }
 
-/* ─── Chapter 6: Contact — Calm Shore ─── */
+/* ─── 6. Contact Scene: Warm Solar Constellation ─── */
 function ContactScene({ z }) {
-  const particlesRef = useRef();
-  const count = 120;
+  const pointsRef = useRef();
+  const count = 100;
 
   const positions = useMemo(() => {
     const arr = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
-      arr[i * 3] = (Math.random() - 0.5) * 14;
-      arr[i * 3 + 1] = (Math.random() - 0.5) * 7;
+      arr[i * 3] = (Math.random() - 0.5) * 16;
+      arr[i * 3 + 1] = (Math.random() - 0.5) * 8;
       arr[i * 3 + 2] = z + (Math.random() - 0.5) * 12;
     }
     return arr;
-  }, [z, count]);
+  }, [z]);
 
   useFrame((state) => {
-    if (particlesRef.current) {
-      particlesRef.current.rotation.y = state.clock.elapsedTime * 0.015;
-      // Slowly converge
-      const scale = 0.97 + Math.sin(state.clock.elapsedTime * 0.3) * 0.03;
-      particlesRef.current.scale.setScalar(scale);
+    if (pointsRef.current) {
+      pointsRef.current.rotation.y = state.clock.elapsedTime * 0.02;
     }
   });
 
   return (
     <group>
-      <points ref={particlesRef}>
+      <points ref={pointsRef}>
         <bufferGeometry>
-          <bufferAttribute
-            attach="attributes-position"
-            count={count}
-            array={positions}
-            itemSize={3}
-          />
+          <bufferAttribute attach="attributes-position" count={count} array={positions} itemSize={3} />
         </bufferGeometry>
-        <pointsMaterial size={0.04} color="#ffd080" transparent opacity={0.55} sizeAttenuation />
+        <pointsMaterial size={0.045} color="#fbbf24" transparent opacity={0.65} sizeAttenuation />
       </points>
-      {/* Warm ambient glow */}
-      <pointLight position={[0, 2, z - 3]} color="#ff9040" intensity={0.6} distance={12} />
-      <pointLight position={[0, -2, z - 6]} color="#4060ff" intensity={0.4} distance={10} />
-      {/* Single calm ring */}
-      <mesh rotation={[Math.PI / 2, 0, 0]} position={[0, -2.5, z - 5]}>
-        <torusGeometry args={[5, 0.006, 8, 80]} />
-        <meshBasicMaterial color="#ffd080" transparent opacity={0.08} />
-      </mesh>
+
+      {/* Warm horizon light */}
+      <pointLight position={[0, 2, z - 4]} color="#f59e0b" intensity={2} distance={14} />
+      <pointLight position={[0, -2, z - 6]} color="#6366f1" intensity={1} distance={10} />
     </group>
   );
 }
 
-/* ─── Background Stars ─── */
-function CinematicStars() {
-  return (
-    <Stars
-      radius={80}
-      depth={60}
-      count={4000}
-      factor={3}
-      saturation={0}
-      fade
-      speed={0.5}
-    />
-  );
-}
-
-/* ─── Camera Rig ─── */
+/* ─── Camera Rig with Smooth Damping & Fog Transitions ─── */
 function CinematicCamera({ scrollProgress, mousePos }) {
   const { camera, scene } = useThree();
   const targetZ = useRef(0);
-  const targetX = useRef(0);
-  const targetY = useRef(0);
   const currentFogColor = useRef(SECTION_FOG_COLORS[0].clone());
 
   useFrame(() => {
-    // Camera Z travel: 0 → MAX_Z
-    const rawZ = scrollProgress * MAX_Z;
-    targetZ.current = rawZ;
-    camera.position.z += (targetZ.current - camera.position.z) * 0.05;
+    // Camera Z translation
+    targetZ.current = scrollProgress * MAX_Z;
+    camera.position.z += (targetZ.current - camera.position.z) * 0.06;
 
-    // Mouse parallax
-    const mx = (mousePos?.x || 0) * 0.8;
-    const my = (mousePos?.y || 0) * 0.4;
-    targetX.current = mx;
-    targetY.current = my;
-    camera.position.x += (targetX.current - camera.position.x) * 0.03;
-    camera.position.y += (targetY.current - camera.position.y) * 0.03;
+    // Mouse & Gyro Parallax
+    const mx = (mousePos?.x || 0) * 0.9;
+    const my = (mousePos?.y || 0) * 0.5;
+    camera.position.x += (mx - camera.position.x) * 0.04;
+    camera.position.y += (my - camera.position.y) * 0.04;
 
-    // Camera looks slightly ahead
-    camera.lookAt(
-      camera.position.x * 0.3,
-      camera.position.y * 0.3,
-      camera.position.z - 5,
-    );
+    camera.lookAt(camera.position.x * 0.25, camera.position.y * 0.25, camera.position.z - 5);
 
-    // Fog color shift based on section
+    // Dynamic Fog interpolation across chapters
     const sectionF = Math.min(scrollProgress * (TOTAL_SECTIONS - 1), TOTAL_SECTIONS - 1);
     const sIdx = Math.floor(sectionF);
     const sFrac = sectionF - sIdx;
@@ -509,80 +359,61 @@ function CinematicCamera({ scrollProgress, mousePos }) {
     if (scene.fog) {
       scene.fog.color.copy(currentFogColor.current);
     }
-    scene.background = currentFogColor.current.clone().multiplyScalar(0.4);
+    scene.background = currentFogColor.current.clone().multiplyScalar(0.35);
   });
 
   return null;
 }
 
-/* ─── Scene Lighting ─── */
-function DynamicLighting({ scrollProgress }) {
-  const light1Ref = useRef();
-  const light2Ref = useRef();
+/* ─── Main 3D Canvas Export ─── */
+export default function Scene3D({ scrollProgress = 0, mousePos = { x: 0, y: 0 } }) {
+  const [isMobile, setIsMobile] = useState(false);
 
-  useFrame(() => {
-    const sectionF = scrollProgress * (TOTAL_SECTIONS - 1);
-    const sIdx = Math.floor(sectionF);
-
-    const lightColors = [
-      ['#ffffff', '#4a9eff'],
-      ['#ffd080', '#4040ff'],
-      ['#80a0ff', '#c080ff'],
-      ['#40ffaa', '#4080ff'],
-      ['#ff40ff', '#40ffff'],
-      ['#ffd080', '#4080ff'],
-    ];
-
-    const [c1, c2] = lightColors[Math.min(sIdx, lightColors.length - 1)];
-    if (light1Ref.current) light1Ref.current.color.lerp(new THREE.Color(c1), 0.02);
-    if (light2Ref.current) light2Ref.current.color.lerp(new THREE.Color(c2), 0.02);
-  });
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
 
   return (
-    <>
-      <ambientLight intensity={0.08} />
-      <directionalLight ref={light1Ref} position={[5, 8, 5]} intensity={0.8} color="#ffffff" />
-      <pointLight ref={light2Ref} position={[-5, -3, -5]} intensity={0.5} color="#4a9eff" />
-    </>
-  );
-}
+    <Canvas
+      camera={{ position: [0, 0, 0], fov: 60, near: 0.1, far: 220 }}
+      gl={{
+        antialias: !isMobile,
+        alpha: false,
+        powerPreference: 'high-performance',
+        toneMapping: THREE.ACESFilmicToneMapping,
+        toneMappingExposure: 1.3,
+      }}
+      dpr={isMobile ? [1, 1] : [1, 1.5]}
+      onCreated={({ scene }) => {
+        scene.fog = new THREE.FogExp2(SECTION_FOG_COLORS[0], 0.032);
+        scene.background = new THREE.Color('#080b24').multiplyScalar(0.35);
+      }}
+    >
+      <ambientLight intensity={0.15} />
 
-/* ─── Main Scene Content ─── */
-function SceneWorld() {
-  return (
-    <>
-      {/* All 6 chapter scenes placed at their Z positions */}
+      {/* Dynamic Cosmic Stars */}
+      <Stars
+        radius={90}
+        depth={70}
+        count={isMobile ? 1200 : 3500}
+        factor={3}
+        saturation={0}
+        fade
+        speed={0.4}
+      />
+
+      {/* Chapter Scenes */}
       <HeroScene z={0} />
       <AboutScene z={-SECTION_DEPTH} />
       <ProjectsScene z={-SECTION_DEPTH * 2} />
       <SkillsScene z={-SECTION_DEPTH * 3} />
       <AIVisionScene z={-SECTION_DEPTH * 4} />
       <ContactScene z={-SECTION_DEPTH * 5} />
-    </>
-  );
-}
 
-/* ─── Main Export ─── */
-export default function Scene3D({ scrollProgress = 0, mousePos = { x: 0, y: 0 } }) {
-  return (
-    <Canvas
-      camera={{ position: [0, 0, 0], fov: 60, near: 0.1, far: 200 }}
-      gl={{
-        antialias: true,
-        alpha: false,
-        powerPreference: 'high-performance',
-        toneMapping: THREE.ACESFilmicToneMapping,
-        toneMappingExposure: 1.4,
-      }}
-      dpr={[1, 1.5]}
-      onCreated={({ scene }) => {
-        scene.fog = new THREE.FogExp2(SECTION_FOG_COLORS[0], 0.035);
-        scene.background = new THREE.Color('#0a0a30').multiplyScalar(0.4);
-      }}
-    >
-      <DynamicLighting scrollProgress={scrollProgress} />
-      <CinematicStars />
-      <SceneWorld />
+      {/* Camera Controller */}
       <CinematicCamera scrollProgress={scrollProgress} mousePos={mousePos} />
     </Canvas>
   );
