@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useRef, useState } from 'react';
@@ -262,17 +262,6 @@ function ProjectCard({ project, index }) {
 
           {/* Action Links */}
           <div className="flex gap-2">
-            {project.github && (
-              <a
-                href={project.github}
-                className="p-2 rounded-lg bg-white/5 hover:bg-white/15 border border-white/5 hover:border-white/20 transition-all"
-                target="_blank"
-                rel="noopener noreferrer"
-                title="View Source / Model Weights"
-              >
-                <Github className="w-4 h-4 text-gray-300 hover:text-white" />
-              </a>
-            )}
             {project.link && (
               <a
                 href={project.link}
@@ -339,16 +328,6 @@ function ProjectCard({ project, index }) {
             className="inline-flex items-center gap-2 text-sm text-cyan-400 hover:text-cyan-300 font-medium transition-colors"
           >
             <span>Launch Live Project</span>
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
-          </a>
-        ) : project.github ? (
-          <a
-            href={project.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-white font-medium transition-colors"
-          >
-            <span>View on GitHub</span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
           </a>
         ) : (

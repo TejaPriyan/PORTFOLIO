@@ -154,9 +154,9 @@ export default function CommandPalette({
       subtitle: 'Natural language to multi-dialect SQL compiler with LangChain',
       category: 'Projects',
       icon: Code,
-      badge: 'GitHub',
+      badge: 'Projects',
       action: () => {
-        window.open('https://github.com/TejaPriyan', '_blank');
+        onNavigate('projects');
         onClose();
       },
     },
@@ -191,14 +191,14 @@ export default function CommandPalette({
       },
     },
     {
-      id: 'open-github',
-      title: 'Open GitHub Profile',
-      subtitle: 'Explore 30+ open-source repositories and code',
-      category: 'External',
-      icon: Github,
-      badge: '@TejaPriyan',
+      id: 'support-pizza',
+      title: '🍕 Buy Me a Pizza',
+      subtitle: 'Support open-source AI & 3D projects',
+      category: 'Support',
+      icon: ExternalLink,
+      badge: 'Pizza',
       action: () => {
-        window.open('https://github.com/TejaPriyan', '_blank');
+        window.open('https://www.buymeacoffee.com/TejaPriyan', '_blank');
         onClose();
       },
     },
