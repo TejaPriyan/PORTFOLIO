@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { motion, useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
@@ -253,6 +253,27 @@ export default function ContactSection() {
                 ))}
               </div>
             </div>
+
+            {/* Support / Buy me a pizza */}
+            <a
+              href="https://www.buymeacoffee.com/TejaPriyan"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-4 rounded-2xl glass border border-amber-400/30 bg-amber-500/5 hover:bg-amber-500/10 flex items-center justify-between gap-4 transition-all duration-300 group hover:border-amber-400/60"
+            >
+              <div className="flex items-center gap-3">
+                <span className="text-2xl">🍕</span>
+                <div>
+                  <p className="text-xs font-mono font-medium text-amber-300 group-hover:text-amber-200">
+                    Buy me a pizza
+                  </p>
+                  <p className="text-[11px] text-gray-400 font-mono">
+                    Support open-source AI & 3D projects
+                  </p>
+                </div>
+              </div>
+              <ExternalLink className="w-4 h-4 text-amber-400 group-hover:translate-x-0.5 transition-transform" />
+            </a>
           </motion.div>
         </div>
       </div>

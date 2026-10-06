@@ -104,6 +104,18 @@ export default function NavigationBar({
               {soundEnabled ? <Volume2 className="w-4 h-4 text-cyan-400" /> : <VolumeX className="w-4 h-4" />}
             </button>
 
+            {/* Buy me a pizza */}
+            <a
+              href="https://www.buymeacoffee.com/TejaPriyan"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-full glass border border-amber-400/30 text-amber-300 hover:text-white hover:border-amber-400/60 bg-amber-500/10 hover:bg-amber-500/20 text-xs font-mono transition-all duration-300 shadow-sm"
+              title="Support TejaPriyan"
+            >
+              <span>🍕</span>
+              <span>Buy me a pizza</span>
+            </a>
+
             {/* Mobile menu button */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
@@ -181,6 +193,19 @@ export default function NavigationBar({
               </>
             )}
           </button>
+        </div>
+
+        {/* Mobile Buy me a pizza link */}
+        <div className="mt-2 pt-2 border-t border-white/10">
+          <a
+            href="https://www.buymeacoffee.com/TejaPriyan"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full flex items-center justify-center gap-2 py-2 rounded-lg bg-amber-500/10 border border-amber-400/30 text-amber-300 hover:text-white text-xs font-mono transition-all"
+          >
+            <span>🍕</span>
+            <span>Buy me a pizza</span>
+          </a>
         </div>
       </motion.div>
     </>
