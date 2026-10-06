@@ -4,24 +4,59 @@ import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useRef, useState } from 'react';
 import {
   ExternalLink, Github, Gamepad2, Bot, Globe, Database, ArrowRight,
-  ShieldCheck, TrafficCone, Hotel, Sparkles, Copy, Check, Terminal, Layers
+  ShieldCheck, TrafficCone, Sparkles, Copy, Check, Terminal, Layers,
+  Radio, Network, Activity, Volume2
 } from 'lucide-react';
 
 const categories = [
-  { id: 'all', label: 'All Projects', count: 8 },
+  { id: 'all', label: 'All Projects', count: 12 },
+  { id: 'web', label: 'Web Applications', count: 8 },
   { id: 'ai', label: 'AI & LLMs', count: 2 },
   { id: 'cv', label: 'Computer Vision', count: 2 },
-  { id: 'web', label: 'Web & 3D Apps', count: 4 },
 ];
 
 const projects = [
   {
     id: 1,
+    title: 'Trace',
+    category: 'web',
+    subtitle: 'Website Architecture & Intelligence Engine',
+    description:
+      'Recursive website intelligence platform dissecting full-site structure, security posture, DNS headers, tech stacks, and internal networks in real time.',
+    tech: ['Next.js', 'TypeScript', 'Cheerio', 'Tailwind CSS', 'API'],
+    icon: Network,
+    color: 'cyan',
+    gradient: 'from-cyan-500/20 to-blue-500/20',
+    accentColor: '#22d3ee',
+    borderColor: 'border-cyan-500/30',
+    link: 'https://tracewebsite.vercel.app/',
+    github: 'https://github.com/TejaPriyan/Trace',
+    featured: true,
+  },
+  {
+    id: 2,
+    title: 'Hopkey',
+    category: 'web',
+    subtitle: 'Encrypted P2P File & Clipboard Bridge',
+    description:
+      'Zero-install cross-device AirDrop alternative connecting phones and PCs via WebRTC data channels, animated QR signaling, and end-to-end encryption.',
+    tech: ['React', 'WebRTC', 'Vite', 'PWA', 'Tailwind CSS'],
+    icon: Radio,
+    color: 'purple',
+    gradient: 'from-purple-500/20 to-pink-500/20',
+    accentColor: '#a855f7',
+    borderColor: 'border-purple-500/30',
+    link: 'https://hopkey.vercel.app/',
+    github: 'https://github.com/TejaPriyan/Hopkey',
+    featured: true,
+  },
+  {
+    id: 3,
     title: 'Teja Priyan AI Platform',
     category: 'ai',
     subtitle: 'Multimodal AI Workspace & Reasoning',
     description:
-      'Production multimodal AI workspace with real-time streaming, interactive code execution sandbox, document intelligence, and vision reasoning. Built for modern high-velocity developer workflows.',
+      'Production multimodal AI workspace featuring real-time streaming, interactive code execution sandbox, document intelligence, and vision reasoning.',
     tech: ['Next.js', 'PyTorch', 'LLMs', 'FastAPI', 'Tailwind CSS', 'WebSockets'],
     icon: Bot,
     color: 'cyan',
@@ -33,12 +68,12 @@ const projects = [
     featured: true,
   },
   {
-    id: 2,
+    id: 4,
     title: 'Tejapriyan-8B Model & Playground',
     category: 'ai',
     subtitle: 'Fine-Tuned 8B LLM & SQL Engine',
     description:
-      'Fine-tuned 8-billion parameter language model optimized for verifiable Text-to-SQL reasoning and schema understanding. Accessible through live web playground, Ollama, and NPX CLI.',
+      'Fine-tuned 8-billion parameter language model optimized for verifiable Text-to-SQL reasoning and schema understanding via web playground and Ollama.',
     cliCommand: 'ollama run teja161615/tejapriyan-8b',
     tech: ['Python', 'PyTorch', 'Hugging Face', 'GGUF', 'Ollama', 'Next.js', 'SQL'],
     icon: Database,
@@ -51,12 +86,80 @@ const projects = [
     featured: true,
   },
   {
-    id: 3,
+    id: 5,
+    title: 'MotionLab',
+    category: 'web',
+    subtitle: 'Kinetic Typography & Physics Studio',
+    description:
+      'Interactive canvas laboratory powered by Matter.js rigid-body collision dynamics, procedural audio synthesis, and interactive kinetic text effects.',
+    tech: ['JavaScript', 'Matter.js', 'Web Audio API', 'HTML5 Canvas'],
+    icon: Activity,
+    color: 'blue',
+    gradient: 'from-blue-500/20 to-indigo-500/20',
+    accentColor: '#60a5fa',
+    borderColor: 'border-blue-500/30',
+    link: 'https://motionlab1.vercel.app/',
+    github: 'https://github.com/TejaPriyan/MotionLab',
+    featured: false,
+  },
+  {
+    id: 6,
+    title: 'REACT',
+    category: 'web',
+    subtitle: 'Audio-Reactive DAW & Synthesizer',
+    description:
+      'Browser DAW converting microphone audio and music tracks into real-time reactive canvas visualizations and customizable frequency spectrums.',
+    tech: ['React', 'Web Audio API', 'HTML5 Canvas', 'Tailwind CSS'],
+    icon: Volume2,
+    color: 'pink',
+    gradient: 'from-pink-500/20 to-rose-500/20',
+    accentColor: '#ec4899',
+    borderColor: 'border-pink-500/30',
+    link: 'https://reactsound.vercel.app/',
+    github: 'https://github.com/TejaPriyan/REACT',
+    featured: false,
+  },
+  {
+    id: 7,
+    title: 'Popsel',
+    category: 'web',
+    subtitle: 'Pixel Reveal Studio & Video Generator',
+    description:
+      'In-browser pixel reveal studio transforming images into dynamic particle animations and high-framerate reveal videos directly on client device.',
+    tech: ['JavaScript', 'HTML5 Canvas', 'Video Export', 'CSS3'],
+    icon: Sparkles,
+    color: 'amber',
+    gradient: 'from-amber-500/20 to-orange-500/20',
+    accentColor: '#f59e0b',
+    borderColor: 'border-amber-500/30',
+    link: 'https://popsel.vercel.app/',
+    github: 'https://github.com/TejaPriyan/Popsel',
+    featured: false,
+  },
+  {
+    id: 8,
+    title: 'GlitchRoom',
+    category: 'web',
+    subtitle: 'Interactive Mystery & Escape Experience',
+    description:
+      'Atmospheric browser puzzle game where the web interface falls apart into 8 hidden glitch chambers with terminal riddles and 7 unique endings.',
+    tech: ['JavaScript', 'HTML5', 'Web Audio API', 'CSS Glitch'],
+    icon: Gamepad2,
+    color: 'green',
+    gradient: 'from-green-500/20 to-emerald-500/20',
+    accentColor: '#4ade80',
+    borderColor: 'border-green-500/30',
+    link: 'https://glitchroom.vercel.app/',
+    github: 'https://github.com/TejaPriyan/GlitchRoom',
+    featured: false,
+  },
+  {
+    id: 9,
     title: 'Helmet Detection System',
     category: 'cv',
-    subtitle: 'AI & Computer Vision',
+    subtitle: 'AI & Computer Vision Compliance',
     description:
-      'Advanced AI-based system that uses computer vision to detect riders without helmets in real-time. Implements CNN deep learning models with 95%+ accuracy for safety enforcement.',
+      'Real-time computer vision system using convolutional deep learning models to identify motorcycle riders without helmets with 95%+ accuracy.',
     tech: ['Python', 'OpenCV', 'TensorFlow', 'Computer Vision', 'Deep Learning'],
     icon: ShieldCheck,
     color: 'blue',
@@ -68,12 +171,12 @@ const projects = [
     featured: false,
   },
   {
-    id: 4,
+    id: 10,
     title: 'Smart Traffic Monitoring',
     category: 'cv',
-    subtitle: 'IoT & AI Platform',
+    subtitle: 'IoT & AI Smart City Platform',
     description:
-      'IoT and AI-powered system for real-time traffic analysis, violation detection, and smart city infrastructure combining computer vision with IoT sensors using YOLO.',
+      'Real-time traffic density analysis, congestion forecasting, and violation detection combining YOLO object detection with IoT infrastructure.',
     tech: ['Python', 'IoT', 'YOLO', 'OpenCV', 'Real-time Processing'],
     icon: TrafficCone,
     color: 'purple',
@@ -85,63 +188,12 @@ const projects = [
     featured: false,
   },
   {
-    id: 5,
-    title: 'Hotel Booking System',
-    category: 'web',
-    subtitle: 'Full-Stack Web Application',
-    description:
-      'Responsive full-stack hotel management system featuring room listings, real-time booking, user authentication, and admin dashboard built with Java Spring Boot.',
-    tech: ['Java', 'Spring Boot', 'HTML/CSS', 'SQL', 'REST APIs'],
-    icon: Hotel,
-    color: 'green',
-    gradient: 'from-green-500/20 to-emerald-500/20',
-    accentColor: '#4ade80',
-    borderColor: 'border-green-500/30',
-    link: 'https://veltechhotel.onrender.com/',
-    github: 'https://github.com/TejaPriyan',
-    featured: false,
-  },
-  {
-    id: 6,
-    title: 'Gaming Hub Platform',
-    category: 'web',
-    subtitle: 'Interactive Web Games',
-    description:
-      'Collection of interactive web-based games showcasing frontend creativity, interactive UI mechanics, and HTML5 Canvas physics.',
-    tech: ['JavaScript', 'HTML/CSS', 'Interactive UI', 'Game Design'],
-    icon: Gamepad2,
-    color: 'cyan',
-    gradient: 'from-cyan-500/20 to-teal-500/20',
-    accentColor: '#22d3ee',
-    borderColor: 'border-cyan-500/30',
-    link: 'https://tejagamehub.netlify.app/',
-    github: 'https://github.com/TejaPriyan',
-    featured: false,
-  },
-  {
-    id: 7,
-    title: 'Glass‑Tech Sanctuary',
-    category: 'web',
-    subtitle: 'Personal Web App & Trivia Hub',
-    description:
-      'Serene glassmorphism-inspired web hub featuring Mind & Skill Suite games, medical trivia, and interactive snippets wrapped in an ultra-clean design.',
-    tech: ['HTML/CSS', 'JavaScript', 'Game Design', 'Glassmorphism', 'Interactive'],
-    icon: Sparkles,
-    color: 'pink',
-    gradient: 'from-pink-500/20 to-rose-500/20',
-    accentColor: '#ec4899',
-    borderColor: 'border-pink-500/30',
-    link: 'https://myself-tejapriyan.onrender.com/',
-    github: 'https://github.com/TejaPriyan',
-    featured: false,
-  },
-  {
-    id: 8,
+    id: 11,
     title: '3D Scroll Portfolio Experience',
     category: 'web',
-    subtitle: 'Immersive Web Application',
+    subtitle: 'Immersive Spatial Web App',
     description:
-      'This very portfolio — an immersive scroll-based 3D storytelling experience built with Three.js, React Three Fiber, Next.js, and Framer Motion with cinematic camera transitions.',
+      'Scroll-driven 3D web experience built with Three.js, React Three Fiber, Next.js, and Framer Motion with real-time particle and lighting physics.',
     tech: ['Next.js', 'Three.js', 'Framer Motion', 'Tailwind CSS', 'WebGL'],
     icon: Globe,
     color: 'amber',
@@ -149,6 +201,23 @@ const projects = [
     accentColor: '#f59e0b',
     borderColor: 'border-amber-500/30',
     link: 'https://portfoliotejapriyan.vercel.app/',
+    github: 'https://github.com/TejaPriyan',
+    featured: false,
+  },
+  {
+    id: 12,
+    title: 'Gaming Hub Platform',
+    category: 'web',
+    subtitle: 'Interactive Web Arcade',
+    description:
+      'Curated arcade of browser-based mini-games highlighting dynamic physics, keyboard mechanics, and responsive HTML5 Canvas rendering.',
+    tech: ['JavaScript', 'HTML/CSS', 'HTML5 Canvas', 'Game Design'],
+    icon: Gamepad2,
+    color: 'cyan',
+    gradient: 'from-cyan-500/20 to-teal-500/20',
+    accentColor: '#22d3ee',
+    borderColor: 'border-cyan-500/30',
+    link: 'https://tejagamehub.netlify.app/',
     github: 'https://github.com/TejaPriyan',
     featured: false,
   },
@@ -186,6 +255,19 @@ const techColors = {
   Glassmorphism: 'bg-cyan-500/20 text-cyan-300',
   Interactive: 'bg-violet-500/20 text-violet-300',
   JavaScript: 'bg-yellow-500/20 text-yellow-300',
+  WebRTC: 'bg-emerald-500/20 text-emerald-300',
+  Vite: 'bg-purple-500/20 text-purple-300',
+  PWA: 'bg-pink-500/20 text-pink-300',
+  TypeScript: 'bg-blue-500/20 text-blue-300',
+  Cheerio: 'bg-amber-500/20 text-amber-300',
+  API: 'bg-teal-500/20 text-teal-300',
+  'Matter.js': 'bg-red-500/20 text-red-300',
+  'Web Audio API': 'bg-violet-500/20 text-violet-300',
+  'HTML5 Canvas': 'bg-yellow-500/20 text-yellow-300',
+  'Video Export': 'bg-rose-500/20 text-rose-300',
+  CSS3: 'bg-blue-500/20 text-blue-300',
+  'CSS Glitch': 'bg-green-500/20 text-green-300',
+  HTML5: 'bg-orange-500/20 text-orange-300',
 };
 
 function ProjectCard({ project, index }) {
@@ -230,7 +312,7 @@ function ProjectCard({ project, index }) {
         transition: 'transform 0.2s ease',
         transformStyle: 'preserve-3d',
       }}
-      className={`group relative rounded-2xl glass overflow-hidden
+      className={`group relative rounded-2xl glass overflow-hidden flex flex-col justify-between
                   border border-white/10 hover:${project.borderColor}
                   transition-colors duration-500 ${project.featured ? 'md:col-span-2' : ''}`}
     >
@@ -244,98 +326,122 @@ function ProjectCard({ project, index }) {
         style={{ background: `linear-gradient(90deg, transparent, ${project.accentColor}, transparent)` }}
       />
 
-      <div className="relative p-6 sm:p-8">
-        {/* Header */}
-        <div className="flex items-start justify-between mb-4">
-          <div className="flex items-center gap-3">
-            <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${project.gradient}
-                            border border-white/10 flex items-center justify-center`}>
-              <project.icon className="w-5 h-5 text-white" />
+      <div className="relative p-6 sm:p-8 flex flex-col h-full justify-between">
+        <div>
+          {/* Header */}
+          <div className="flex items-start justify-between mb-4">
+            <div className="flex items-center gap-3">
+              <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${project.gradient}
+                              border border-white/10 flex items-center justify-center`}>
+                <project.icon className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-white group-hover:text-cyan-200 transition-colors">
+                  {project.title}
+                </h3>
+                <p className="text-xs text-gray-400 font-mono mt-0.5">{project.subtitle}</p>
+              </div>
             </div>
-            <div>
-              <h3 className="text-xl font-bold text-white group-hover:text-cyan-200 transition-colors">
-                {project.title}
-              </h3>
-              <p className="text-xs text-gray-400 font-mono mt-0.5">{project.subtitle}</p>
-            </div>
-          </div>
 
-          {/* Action Links */}
-          <div className="flex gap-2">
-            {project.link && (
-              <a
-                href={project.link}
-                className="p-2 rounded-lg bg-white/5 hover:bg-white/15 border border-white/5 hover:border-white/20 transition-all"
-                target="_blank"
-                rel="noopener noreferrer"
-                title="Launch Live App"
-              >
-                <ExternalLink className="w-4 h-4 text-gray-300 hover:text-white" />
-              </a>
-            )}
-          </div>
-        </div>
-
-        {/* Description */}
-        <p className="text-sm text-gray-300 leading-relaxed mb-5">{project.description}</p>
-
-        {/* Interactive CLI Badge for LLM */}
-        {project.cliCommand && (
-          <div className="mb-5 flex items-center justify-between gap-2 px-3.5 py-2 rounded-lg bg-black/40 border border-white/10 text-xs font-mono">
-            <div className="flex items-center gap-2 text-cyan-300 overflow-x-auto no-scrollbar">
-              <Terminal className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
-              <span className="text-gray-400 select-none">$</span>
-              <span className="truncate">{project.cliCommand}</span>
-            </div>
-            <button
-              onClick={handleCopyCli}
-              className="flex items-center gap-1 text-[11px] px-2 py-0.5 rounded bg-white/5 hover:bg-white/15 text-gray-300 hover:text-white border border-white/10 shrink-0 transition-all"
-              title="Copy terminal command"
-            >
-              {copied ? (
-                <>
-                  <Check className="w-3 h-3 text-green-400" />
-                  <span className="text-green-400">Copied!</span>
-                </>
-              ) : (
-                <>
-                  <Copy className="w-3 h-3 text-gray-400" />
-                  <span>Copy</span>
-                </>
+            {/* Action Links (top right) */}
+            <div className="flex items-center gap-2">
+              {project.github && (
+                <a
+                  href={project.github}
+                  className="p-2 rounded-lg bg-white/5 hover:bg-white/15 border border-white/5 hover:border-white/20 transition-all text-gray-300 hover:text-white"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="View Source on GitHub"
+                >
+                  <Github className="w-4 h-4" />
+                </a>
               )}
-            </button>
+              {project.link && (
+                <a
+                  href={project.link}
+                  className="p-2 rounded-lg bg-white/5 hover:bg-white/15 border border-white/5 hover:border-white/20 transition-all text-gray-300 hover:text-white"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="Launch Live App"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                </a>
+              )}
+            </div>
           </div>
-        )}
 
-        {/* Tech stack badges */}
-        <div className="flex flex-wrap gap-2 mb-6">
-          {project.tech.map((t) => (
-            <span
-              key={t}
-              className={`px-2.5 py-1 rounded-md text-xs font-mono ${techColors[t] || 'bg-gray-500/20 text-gray-300'}`}
-            >
-              {t}
-            </span>
-          ))}
+          {/* Description */}
+          <p className="text-sm text-gray-300 leading-relaxed mb-5">{project.description}</p>
+
+          {/* Interactive CLI Badge for LLM */}
+          {project.cliCommand && (
+            <div className="mb-5 flex items-center justify-between gap-2 px-3.5 py-2 rounded-lg bg-black/40 border border-white/10 text-xs font-mono">
+              <div className="flex items-center gap-2 text-cyan-300 overflow-x-auto no-scrollbar">
+                <Terminal className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
+                <span className="text-gray-400 select-none">$</span>
+                <span className="truncate">{project.cliCommand}</span>
+              </div>
+              <button
+                onClick={handleCopyCli}
+                className="flex items-center gap-1 text-[11px] px-2 py-0.5 rounded bg-white/5 hover:bg-white/15 text-gray-300 hover:text-white border border-white/10 shrink-0 transition-all"
+                title="Copy terminal command"
+              >
+                {copied ? (
+                  <>
+                    <Check className="w-3 h-3 text-green-400" />
+                    <span className="text-green-400">Copied!</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-3 h-3 text-gray-400" />
+                    <span>Copy</span>
+                  </>
+                )}
+              </button>
+            </div>
+          )}
+
+          {/* Tech stack badges */}
+          <div className="flex flex-wrap gap-2 mb-6">
+            {project.tech.map((t) => (
+              <span
+                key={t}
+                className={`px-2.5 py-1 rounded-md text-xs font-mono ${techColors[t] || 'bg-gray-500/20 text-gray-300'}`}
+              >
+                {t}
+              </span>
+            ))}
+          </div>
         </div>
 
-        {/* Action Button */}
-        {project.link ? (
-          <a
-            href={project.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-sm text-cyan-400 hover:text-cyan-300 font-medium transition-colors"
-          >
-            <span>Launch Live Project</span>
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
-          </a>
-        ) : (
-          <div className="flex items-center gap-2 text-sm text-gray-400">
-            <span>Featured Project</span>
-            <ArrowRight className="w-4 h-4" />
-          </div>
-        )}
+        {/* Action Bottom Bar */}
+        <div className="flex items-center justify-between pt-4 border-t border-white/10 mt-2">
+          {project.link ? (
+            <a
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm text-cyan-400 hover:text-cyan-300 font-medium transition-colors"
+            >
+              <span>Launch Live</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
+            </a>
+          ) : (
+            <span className="text-xs text-gray-400 font-mono">System Research</span>
+          )}
+
+          {project.github && (
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-xs text-gray-300 hover:text-white font-mono transition-colors px-2.5 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10"
+            >
+              <Github className="w-3.5 h-3.5" />
+              <span>GitHub</span>
+            </a>
+          )}
+        </div>
       </div>
     </motion.div>
   );

@@ -2,9 +2,10 @@
 
 import { motion, useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
-import { Send, Linkedin, Mail, MapPin, CheckCircle, AlertCircle, Globe, ExternalLink } from 'lucide-react';
+import { Send, Github, Linkedin, Mail, MapPin, CheckCircle, AlertCircle, Globe, ExternalLink } from 'lucide-react';
 
 const socials = [
+  { icon: Github,   label: 'GitHub',       href: 'https://github.com/TejaPriyan',            color: 'hover:text-white' },
   { icon: Linkedin, label: 'LinkedIn',     href: 'https://www.linkedin.com/in/tejapriyan',    color: 'hover:text-blue-400' },
   { icon: Globe,    label: 'Hugging Face', href: 'https://huggingface.co/teja161615',         color: 'hover:text-amber-400' },
   { icon: Mail,     label: 'Email',        href: 'mailto:teja1616150@gmail.com',              color: 'hover:text-purple-400' },

@@ -203,6 +203,18 @@ export default function CommandPalette({
       },
     },
     {
+      id: 'open-github',
+      title: 'GitHub Profile & Repositories',
+      subtitle: 'github.com/TejaPriyan',
+      category: 'Contact',
+      icon: Github,
+      badge: 'GitHub',
+      action: () => {
+        window.open('https://github.com/TejaPriyan', '_blank');
+        onClose();
+      },
+    },
+    {
       id: 'talk-priya',
       title: 'Chat with Priya AI Assistant',
       subtitle: 'Ask questions about Teja Priyan in natural language',

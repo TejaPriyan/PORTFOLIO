@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { motion, useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
@@ -35,23 +35,23 @@ const skillCategories = [
     ],
   },
   {
-    name: 'Frontend & 3D Web',
+    name: 'Frontend, WebRTC & Creative Tech',
     skills: [
-      { name: 'React & Next.js',      level: 88, color: '#61dafb' },
-      { name: 'Tailwind CSS',         level: 92, color: '#06b6d4' },
-      { name: 'Three.js & WebGL',     level: 78, color: '#9ca3af' },
-      { name: 'Framer Motion',        level: 86, color: '#ec4899' },
-      { name: 'Responsive UI Architecture', level: 90, color: '#bb4b96' },
+      { name: 'React & Next.js 15',           level: 92, color: '#61dafb' },
+      { name: 'WebRTC & PWA Systems',         level: 88, color: '#06b6d4' },
+      { name: 'Matter.js & Web Audio API',    level: 86, color: '#a855f7' },
+      { name: 'Three.js, WebGL & Canvas 2D',  level: 85, color: '#9ca3af' },
+      { name: 'Tailwind CSS & Framer Motion', level: 94, color: '#ec4899' },
     ],
   },
   {
-    name: 'Backend & Enterprise',
+    name: 'Backend & Systems Architecture',
     skills: [
       { name: 'Spring Boot',          level: 88, color: '#6db33f' },
-      { name: 'FastAPI / REST APIs',  level: 86, color: '#009688' },
+      { name: 'FastAPI / REST APIs',  level: 88, color: '#009688' },
       { name: 'PostgreSQL & MySQL',   level: 85, color: '#336791' },
-      { name: 'MongoDB',              level: 78, color: '#47a248' },
-      { name: 'Git & Docker',         level: 90, color: '#f05032' },
+      { name: 'Docker & Microservices', level: 82, color: '#47a248' },
+      { name: 'Git & CI/CD DevOps',   level: 90, color: '#f05032' },
     ],
   },
 ];
