@@ -1,77 +1,32 @@
-﻿import { NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
 export async function POST(request) {
+  let body;
+  try { body = await request.json(); } catch { return NextResponse.json({ error: 'Invalid request.' }, { status: 400 }); }
+  const { name, email, message } = body || {};
+  if ([name, email, message].some(value => typeof value !== 'string' || !value.trim()) ||
+      name.length > 120 || email.length > 254 || message.length > 10000 ||
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+    return NextResponse.json({ error: 'Please provide a valid name, email and message (up to 10,000 characters).' }, { status: 400 });
+  }
+  if (!process.env.RESEND_API_KEY) {
+    return NextResponse.json({ error: 'Email delivery is unavailable. Please email teja1616150@gmail.com directly.' }, { status: 503 });
+  }
   try {
-    const body = await request.json();
-    const { name, email, message } = body;
-
-    // Validate inputs
-    if (!name?.trim() || !email?.trim() || !message?.trim()) {
-      return NextResponse.json(
-        { error: 'Please fill in all fields (Name, Email, Message).' },
-        { status: 400 }
-      );
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      return NextResponse.json(
-        { error: 'Please provide a valid email address.' },
-        { status: 400 }
-      );
-    }
-
-    // Attempt real email dispatch if Resend API key is available
-    if (process.env.RESEND_API_KEY) {
-      try {
-        const resendResponse = await fetch('https://api.resend.com/emails', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
-          },
-          body: JSON.stringify({
-            from: 'Portfolio Contact <onboarding@resend.dev>',
-            to: ['teja1616150@gmail.com'],
-            subject: `Portfolio Inquiry from ${name.trim()}`,
-            reply_to: email.trim(),
-            html: `
-              <h2>New Contact Message from Portfolio</h2>
-              <p><strong>Name:</strong> ${name.trim()}</p>
-              <p><strong>Email:</strong> ${email.trim()}</p>
-              <p><strong>Message:</strong></p>
-              <blockquote style="background:#f4f4f5;padding:12px;border-left:4px solid #22d3ee;">
-                ${message.trim().replace(/\n/g, '<br/>')}
-              </blockquote>
-            `,
-          }),
-        });
-
-        if (!resendResponse.ok) {
-          const errData = await resendResponse.json();
-          console.warn('Resend dispatch error:', errData);
-        }
-      } catch (err) {
-        console.warn('Resend error caught:', err);
-      }
-    }
-
-    // Always log detailed submission on server
-    console.log('[Contact Form Submission]', {
-      name: name.trim(),
-      email: email.trim(),
-      message: message.trim(),
-      timestamp: new Date().toISOString(),
+    const response = await fetch('https://api.resend.com/emails', {
+      method: 'POST', signal: AbortSignal.timeout(15000),
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${process.env.RESEND_API_KEY}` },
+      body: JSON.stringify({
+        from: process.env.CONTACT_FROM || 'Portfolio Contact <onboarding@resend.dev>',
+        to: [process.env.CONTACT_TO || 'teja1616150@gmail.com'],
+        subject: `Portfolio inquiry from ${name.trim().replace(/[\r\n]/g, ' ')}`,
+        reply_to: email.trim(),
+        text: `Name: ${name.trim()}\nEmail: ${email.trim()}\n\n${message.trim()}`,
+      }),
     });
-
-    return NextResponse.json({
-      success: true,
-      message: `Thank you, ${name.trim()}! Your message has been received. Teja will reply to ${email.trim()} soon.`,
-    });
+    if (!response.ok) return NextResponse.json({ error: 'Email delivery failed. Please retry or email directly.' }, { status: 502 });
+    return NextResponse.json({ success: true, message: 'Your message was accepted for delivery. Thank you!' });
   } catch {
-    return NextResponse.json(
-      { error: 'Failed to process message. Please try again or email directly.' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Email delivery timed out or failed. Please retry or email directly.' }, { status: 502 });
   }
 }
